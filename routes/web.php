@@ -20,10 +20,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/muestras', [MuestraController::class, 'index']); // Obtener todas las muestras
-Route::post('/muestras', [MuestraController::class, 'store']); // Crear una nueva muestra
-Route::get('/muestras/{id}', [MuestraController::class, 'show']); // Obtener una muestra específica
-Route::put('/muestras/{id}', [MuestraController::class, 'update']); // Actualizar una muestra específica
-Route::delete('/muestras/{id}', [MuestraController::class, 'destroy']); // Eliminar una muestra específica
+Route::post('/crearmuestras', [MuestraController::class, 'store']); // Crear una nueva muestra
+Route::get('/muestra/{id}', [MuestraController::class, 'show']); // Obtener una muestra específica
+Route::put('/actualizarmuestra/{id}', [MuestraController::class, 'update']); // Actualizar una muestra específica
+Route::delete('/borrarmuestra/{id}', [MuestraController::class, 'destroy']); // Eliminar una muestra específica
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,9 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { FormLayout } from '@/Layouts/FormLayout';
+import { BrowserRouter } from 'react-router-dom';
 
 export default function Dashboard() {
     return (
+        <BrowserRouter>
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
@@ -25,5 +27,6 @@ export default function Dashboard() {
                 </div>
             </div>
         </AuthenticatedLayout>
+        </BrowserRouter>
     );
 }

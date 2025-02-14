@@ -3,9 +3,11 @@ import { Head } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import { BrowserRouter } from 'react-router-dom';
 
 export default function Edit({ mustVerifyEmail, status }) {
     return (
+        <BrowserRouter>
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
@@ -35,5 +37,7 @@ export default function Edit({ mustVerifyEmail, status }) {
                 </div>
             </div>
         </AuthenticatedLayout>
+        /</BrowserRouter>
+        
     );
 }

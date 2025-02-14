@@ -25,7 +25,7 @@ Route::get('/formulario', function () {
 
 
 Route::get('/muestras', [MuestraController::class, 'index']); // Obtener todas las muestras
-Route::post('/crearmuestras', [MuestraController::class, 'store']); // Crear una nueva muestra
+Route::post('/crearmuestra', [MuestraController::class, 'store']); // Crear una nueva muestra
 Route::get('/muestra/{id}', [MuestraController::class, 'show']); // Obtener una muestra específica
 Route::put('/actualizarmuestra/{id}', [MuestraController::class, 'update']); // Actualizar una muestra específica
 Route::delete('/borrarmuestra/{id}', [MuestraController::class, 'destroy']); // Eliminar una muestra específica

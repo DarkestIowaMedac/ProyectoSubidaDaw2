@@ -23,6 +23,8 @@ export function FormLayout() {
 
             if (response.ok) {
                 alert('Muestra creada exitosamente');
+                // Redirige al usuario a la vista Dashboard
+                window.location.href = '/ProyectoSubidaDaw2/public/dashboard'; // Redirección manual
             } else if (response.status === 419) {
                 alert('Error 419: Token CSRF inválido o ausente.');
             } else {

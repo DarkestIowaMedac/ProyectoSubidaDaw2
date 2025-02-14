@@ -19,6 +19,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/formulario', function () {
+    return Inertia::render('Formulario');
+})->middleware(['auth', 'verified'])->name('formulario');
+
+
 Route::get('/muestras', [MuestraController::class, 'index']); // Obtener todas las muestras
 Route::post('/crearmuestras', [MuestraController::class, 'store']); // Crear una nueva muestra
 Route::get('/muestra/{id}', [MuestraController::class, 'show']); // Obtener una muestra específica

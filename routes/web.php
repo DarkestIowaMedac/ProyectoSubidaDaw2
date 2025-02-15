@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\MuestraController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -17,6 +18,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/formulario', function () {
+    return Inertia::render('Formulario');
+})->middleware(['auth', 'verified'])->name('formulario');
+
+
+Route::get('/muestras', [MuestraController::class, 'index']); // Obtener todas las muestras
+Route::post('/crearmuestra', [MuestraController::class, 'store']); // Crear una nueva muestra
+Route::get('/muestra/{id}', [MuestraController::class, 'show']); // Obtener una muestra específica
+Route::put('/actualizarmuestra/{id}', [MuestraController::class, 'update']); // Actualizar una muestra específica
+Route::delete('/borrarmuestra/{id}', [MuestraController::class, 'destroy']); // Eliminar una muestra específica
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

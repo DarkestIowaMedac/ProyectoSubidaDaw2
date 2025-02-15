@@ -10,6 +10,9 @@ export function DashboardLayout (){
         setMuestras(datos)
     })
 
+
+//-- BORRAR ---------------------------------------------------------------------
+
     const borrarMuestra = async (id) => {
         try {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtén el token CSRF del meta tag
@@ -39,6 +42,19 @@ export function DashboardLayout (){
         }
     };
 
+
+//-- EDITAR ----------------------------------------------------------
+    
+    const almacenarMuestraEnCookie = (muestra) => {
+        const muestraJSON = JSON.stringify(muestra); // Convierte el objeto en una cadena JSON
+        document.cookie = `muestra=${muestraJSON}; path=/; max-age=60`; // Almacena la cookie con una duración de 1 min
+    };
+
+    const editarMuestra = (muestra) => {
+        almacenarMuestraEnCookie(muestra);
+        window.location.href = '/ProyectoSubidaDaw2/public/formulario'; // Redirección manual
+    }
+
     return(
         <>
             {
@@ -60,6 +76,7 @@ export function DashboardLayout (){
 
                         <button 
                             className='bg-blue-500 text-white p-3 rounded mr-4'
+                            onClick={()=>editarMuestra(muestra)}
                         >
                             Editar
                         </button>

@@ -89,7 +89,7 @@ const verMuestra = async (id) => {
         if (response.ok) {
             const muestraData = await response.json();
             setMuestraDetalle(muestraData); // Almacena la muestra en el estado
-            //window.history.pushState({}, '', `/ProyectoSubidaDaw2/public/muestraDetalles/${id}`); // Cambia la URL sin recargar
+            window.history.pushState({}, '', `/ProyectoSubidaDaw2/public/dashboard`); // Cambia la URL sin recargar
         } else {
             alert(`Error al visualizar la muestra con ID ${id}.`);
         }

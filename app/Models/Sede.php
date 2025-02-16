@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Muestra;
 
@@ -13,7 +12,7 @@ class Sede extends Model
     use HasFactory;
 
     /**
-     * Restringe los campos a los que el usuario podrá escribir datos.
+     * Campos rellenables.
      *
      * @var list<string>
      */
@@ -21,14 +20,6 @@ class Sede extends Model
         'codigo',
         'nombre',
     ];
-
-    /**
-     * Una sede tiene muchos usuarios
-     */
-    public function users()
-    {
-        return $this->hasMany(User::class, 'idSede');
-    }
 
     /**
      * Una sede tiene muchas muestras

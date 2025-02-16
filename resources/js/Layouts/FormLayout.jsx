@@ -6,6 +6,7 @@ export function FormLayout() {
     const obtenerMuestraDeCookie = () => {
         const cookies = document.cookie.split('; '); // Divide las cookies en un array
         const muestraCookie = cookies.find((cookie) => cookie.startsWith('muestra='));
+        deleteAllCookies();
         if (muestraCookie) {
             const muestraJSON = muestraCookie.split('=')[1]; // Obtiene el valor de la cookie
             return JSON.parse(muestraJSON); // Convierte la cadena JSON de vuelta a un objeto
@@ -13,6 +14,16 @@ export function FormLayout() {
         return null; // Si no se encuentra la cookie, devuelve null
     };
 
+    function deleteAllCookies() {
+        // Obtener todas las cookies
+        const cookies = document.cookie.split(";");
+        // Recorrer cada cookie y eliminarla
+        for (let cookie of cookies) {
+            const cookieName = cookie.split("=")[0].trim();
+            // Establecer la cookie con una fecha de expiración en el pasado
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+        }
+    }
     // Estado para la muestra anterior
     const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
 

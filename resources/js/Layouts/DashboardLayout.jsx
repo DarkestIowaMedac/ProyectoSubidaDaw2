@@ -2,11 +2,12 @@ import { useState } from 'react';
 import MuestraDetalles from "../pages/MuestraDetalles"
 import { useEffect } from 'react';
 import Formulario from "../pages/Formulario"
+import { FormLayout } from './FormLayout';
 export function DashboardLayout (){
 
     const [muestras, setMuestras] = useState([]);
     const [muestraDetalle, setMuestraDetalle] = useState(null);
-    const [refrescar, setRefrescar] = useState(false); // Estado para controlar el re-fetch
+    const [refrescar, setRefrescar] = useState(0); // Estado para controlar el re-fetch
     const [paginaActual, setPaginaActual] = useState(window.location.pathname);
 
     const fetchMuestras = async () => {
@@ -64,7 +65,7 @@ export function DashboardLayout (){
             console.error('Error:', error);
             alert('Error al intentar eliminar la muestra.');
         }
-        setRefrescar(true)
+        setRefrescar(refrescar+1)
     };
 
     const handleDelete = (id) => {
@@ -88,7 +89,7 @@ const verMuestra = async (id) => {
         if (response.ok) {
             const muestraData = await response.json();
             setMuestraDetalle(muestraData); // Almacena la muestra en el estado
-            window.history.pushState({}, '', `/ProyectoSubidaDaw2/public/muestraDetalles/${id}`); // Cambia la URL sin recargar
+            //window.history.pushState({}, '', `/ProyectoSubidaDaw2/public/muestraDetalles/${id}`); // Cambia la URL sin recargar
         } else {
             alert(`Error al visualizar la muestra con ID ${id}.`);
         }
@@ -115,7 +116,7 @@ const verMuestra = async (id) => {
     const renderizarPagina = () => {
     switch (paginaActual) {
         case '/ProyectoSubidaDaw2/public/formulario':
-            return <Formulario />;
+            return <FormLayout />;
 
     default:
     return (

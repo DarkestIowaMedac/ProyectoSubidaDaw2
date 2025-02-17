@@ -27,18 +27,24 @@ export function FormLayout() {
     // Estado para la muestra anterior
     const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
 
-    // Estado para los datos del formulario
+    //! Estado para los datos del formulario
     const [formData, setFormData] = useState({
-        nombre: '',
-        descripcion: '',
+        codigo: '',
+        fecha: '',
+        user_id: '',
+        sede_id: '',
+        formato_id: '',
     });
 
-    // Efecto para inicializar los valores del formulario si hay una muestra anterior
+    //! Efecto para inicializar los valores del formulario si hay una muestra anterior
     useEffect(() => {
         if (muestraAnterior) {
             setFormData({
-                nombre: muestraAnterior.nombre || '',
-                descripcion: muestraAnterior.descripcion || '',
+                codigo: muestraAnterior.codigo || '',
+                fecha: muestraAnterior.fecha || '',
+                user_id: muestraAnterior.user_id || '',
+                sede_id: muestraAnterior.sede_id || '',
+                formato_id: muestraAnterior.formato_id || '',
             });
         }
     }, [muestraAnterior]);
@@ -97,31 +103,31 @@ export function FormLayout() {
             <h1>Formulario de los cojones</h1>
             <br />
             <form onSubmit={handleSubmit}>
-                <label htmlFor="nombre">Nombre:</label><br />
+
+                <label htmlFor="codigo">Código:</label><br />
                 <input
                     className="text-black"
                     type="text"
-                    id="nombre"
-                    name="nombre"
-                    placeholder="Escribe tu nombre"
-                    value={formData.nombre} // Valor controlado
+                    id="codigo"
+                    name="codigo"
+                    placeholder="Escribe tu codigo"
+                    value={formData.codigo} // Valor controlado
                     onChange={handleChange} // Manejar cambios
                     required
                 />
                 <br /><br />
 
-                <label htmlFor="descripcion">Texto:</label><br />
-                <textarea
+                <label htmlFor="fecha">Fecha:</label><br />
+                <input
                     className="text-black"
-                    id="descripcion"
-                    name="descripcion"
-                    rows="4"
-                    cols="50"
-                    placeholder="Escribe un mensaje aquí..."
-                    value={formData.descripcion} // Valor controlado
+                    type="date"
+                    id="fecha"
+                    name="fecha"
+                    value={formData.fecha} // Valor controlado
                     onChange={handleChange} // Manejar cambios
                     required
-                ></textarea>
+                />
+                
                 <br /><br />
 
                 <button type="submit" className="bg-green-500 text-white p-3 rounded">

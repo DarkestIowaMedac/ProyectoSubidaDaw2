@@ -12,8 +12,11 @@ class MuestraController extends Controller
     public function store(Request $request)
     {
         $muestra = Muestra::create([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
+            'codigo' => $request->codigo,
+            'fecha' => $request->fecha,
+            'user_id' => $request->user_id,
+            'sede_id' => $request->sede_id,
+            'formato_id' => $request->formato_id,
         ]);
         return response()->json($muestra, 201);
     }
@@ -42,8 +45,11 @@ class MuestraController extends Controller
         }
 
         $muestra->update([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
+            'codigo' => $request->codigo,
+            'fecha' => $request->fecha,
+            'user_id' => $request->user_id,
+            'sede_id' => $request->sede_id,
+            'formato_id' => $request->formato_id,
         ]);
         return response()->json($muestra);
     }

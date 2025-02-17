@@ -4,6 +4,7 @@ import { AaSede } from '@/Components/AaSede';
 import { AaFormato } from '@/Components/AaFormato';
 
 export function FormLayout() {
+
     // Función para obtener la muestra de la cookie
     const obtenerMuestraDeCookie = () => {
         const cookies = document.cookie.split('; '); // Divide las cookies en un array
@@ -33,10 +34,41 @@ export function FormLayout() {
     const [formData, setFormData] = useState({
         codigo: '',
         fecha: '',
-        user_id: 1,
+        user_id: '',
         sede_id: '',
         formato_id: '',
     });
+
+    const obtenerId = async() => {
+        try {
+            const response = await fetch('/ProyectoSubidaDaw2/public/user/id');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const datos = await response.json();
+            return(datos)
+        } catch (error) {
+            console.error('Error fetching formatos:', error);
+            alert('Error al cargar los formatos. Por favor, intenta de nuevo más tarde.');
+            return null
+        }
+    }
+
+    // useEffect para obtener el user_id al montar el componente
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const userData = await obtenerId(); // Llama a la función asíncrona
+            if (userData) {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    user_id: userData.user_id, // Actualiza el estado con el user_id obtenido
+                }));
+            }
+        };
+
+        fetchUserId(); // Ejecuta la función
+    }, []); // Solo se ejecuta una vez al montar el componente
+
 
     //! Efecto para inicializar los valores del formulario si hay una muestra anterior
     useEffect(() => {
@@ -60,6 +92,8 @@ export function FormLayout() {
     // Manejar el envío del formulario
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        console.log('Datos enviados:', formData);
 
         try {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtén el token CSRF del meta tag

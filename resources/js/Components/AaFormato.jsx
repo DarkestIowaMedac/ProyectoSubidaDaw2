@@ -11,7 +11,6 @@ export function AaFormato({ value, onChange }) {
             }
             const datos = await response.json();
             setFormatos(datos);
-            console.log(datos);
         } catch (error) {
             console.error('Error fetching formatos:', error);
             alert('Error al cargar los formatos. Por favor, intenta de nuevo más tarde.');

@@ -11,7 +11,6 @@ export function AaSede({ value, onChange }) {
             }
             const datos = await response.json();
             setSedes(datos);
-            console.log(datos);
         } catch (error) {
             console.error('Error fetching sedes:', error);
             alert('Error al cargar las sedes. Por favor, intenta de nuevo más tarde.');

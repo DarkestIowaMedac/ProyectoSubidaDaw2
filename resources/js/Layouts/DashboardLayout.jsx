@@ -131,11 +131,13 @@ const verMuestra = async (id) => {
                 muestras.map((muestra)=>(
                     <div key={muestra.id} id={muestra.id} className=' pb-5'>
                         <h1 className='font-bold'>
-                            {muestra.id}. {muestra.nombre}
+                            Muestra ID: {muestra.id}
                         </h1>
-
                         <h2>
-                            {muestra.descripcion}
+                            Código: {muestra.codigo}
+                        </h2>
+                        <h2>
+                            Fecha: {muestra.fecha}
                         </h2>
 
                         <button

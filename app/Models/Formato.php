@@ -2,27 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Muestra;
+use Illuminate\Database\Eloquent\Model;
 
-class Sede extends Model
+class Formato extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory;
-
     /**
      * Campos rellenables.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'codigo',
-        'nombre',
+        'nombre', // Autorrellenable
     ];
 
     /**
-     * Una sede tiene muchas muestras
+     * Un formato tiene muchas muestras
      */
     public function muestras()
     {

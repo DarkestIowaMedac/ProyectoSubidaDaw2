@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('muestras', function (Blueprint $table) {
+        Schema::create('formatos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            // Campos añadidos
             $table->string('nombre');
-            $table->text('descripcion');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('muestras');
+        Schema::dropIfExists('formatos');
     }
 };

@@ -12,13 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sedes', function (Blueprint $table) {
-            // Campos genéricos
             $table->id(); // PK
             $table->timestamps();
 
-            // Campos añadidos
-            $table->string('codigo'); // Autorellenable
-            $table->string('nombre'); // Autorellenable
+            $table->string('codigo'); // Autorrellenable
+            $table->string('nombre'); // Autorrellenable
         });
     }
 

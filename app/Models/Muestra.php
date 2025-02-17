@@ -15,4 +15,12 @@ class Muestra extends Model
         'nombre',
         'descripcion',
     ];
+    /**
+ * Una muestra pertenece a una sede.
+ */
+public function sede()
+{
+    return $this->belongsTo(Sede::class, 'idSede');
+}
+
 }

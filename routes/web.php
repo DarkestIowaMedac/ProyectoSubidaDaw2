@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\SedeController;
 use App\Http\Controllers\MuestraController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -35,5 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::resource('sedes', SedeController::class);
+
+
+Route::post('muestras', [MuestraController::class, 'store'])->name('muestras.store');
+Route::get('muestra/{id}', [MuestraController::class, 'show'])->name('muestra.show');
+
+
 
 require __DIR__.'/auth.php';

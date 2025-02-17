@@ -32,7 +32,7 @@ class ImagenController extends Controller
 
     public function delete($muestra_id){
         // Obtener la muestra a partir de la ID que se pasa en el cuerpo de la solicitud
-        $muestra = Muestra::find($muestra_id);
+        $muestra = Muestra::muestra();
         if (!$muestra) {
             return response()->json(['message' => 'Muestra no encontrada'], 404);
         }

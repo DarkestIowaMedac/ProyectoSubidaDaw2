@@ -17,4 +17,20 @@ class Calidad extends Model
         'codigo', // Autorrellenable
         'texto', // Autorrellenable
     ];
+
+    /**
+     * Cada calidad pertenece a una naturaleza
+     */
+    public function naturaleza()
+    {
+        return $this->belongsTo(Naturaleza::class);
+    }
+
+    /**
+     * Cada descripción pertenece a una naturaleza
+     */
+    public function descripcion()
+    {
+        return $this->belongsTo(Naturaleza::class);
+    }
 }

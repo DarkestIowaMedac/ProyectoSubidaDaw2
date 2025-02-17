@@ -35,10 +35,10 @@ class Muestra extends Model
     /**
      * Cada muestra pertenece a una naturaleza
      */
-    // public function naturaleza()
-    // {
-    //     return $this->belongsTo(Naturaleza::class);
-    // }
+    public function naturaleza()
+    {
+        return $this->belongsTo(Naturaleza::class);
+    }
 
     /**
      * Cada muestra pertenece a un formato

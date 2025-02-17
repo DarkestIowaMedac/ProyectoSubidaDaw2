@@ -38,7 +38,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             <div className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
                                 <ResponsiveNavLink
                                     href={route('profile.edit')} active={route().current('profile.edit')}
-                                    className="flex items-center w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white"
+                                    className="flex items-center w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600 hover:text-white hover:rounded-t"
                                 >
                                     <span className="material-icons text-blue-400 mr-2">account_circle</span>
                                     Perfil
@@ -47,7 +47,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     href={route('logout')}
                                     method="post"
                                     as="button"
-                                    className="flex items-center w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500 hover:text-white"
+                                    className="flex items-center w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500 hover:text-white hover:rounded-b"
                                 >
                                     <span className="material-icons text-blue-400 mr-2">logout</span>
                                     Cerrar Sesión

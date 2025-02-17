@@ -42,7 +42,12 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-
+            <div className="w-full max-w-md bg-gray-900 p-8 border border-gray-700 rounded-lg shadow-lg">
+                {/* Título principal */}
+                <h2 className="text-2xl font-bold text-white text-center">Create an Account</h2>
+                    <p className="text-sm text-gray-400 text-center mt-2">
+                        Join us by filling out the information below.
+                    </p>
             <form onSubmit={submit} className="text-white">
                 <div>
                     <InputLabel htmlFor="name" value="Name" className="text-white" />
@@ -125,6 +130,7 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
+            </div>
         </GuestLayout>
     );
 

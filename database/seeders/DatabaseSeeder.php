@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Crea 10 muestras falsas de prueba
-        Muestra::factory()->count(10)->create();
+        // Muestra::factory()->count(10)->create();
 
         // Crea 10 interpretaciones falsas de prueba
         Interpretacion::factory()->count(10)->create();

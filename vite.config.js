@@ -10,4 +10,7 @@ export default defineConfig({
         }),
         react(),
     ],
+    build: {
+        outDir: 'dist', // Asegúrate de que esto coincida con tu configuración de Netlify
+    },
 });

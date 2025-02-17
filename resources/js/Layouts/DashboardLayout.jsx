@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import MuestraDetalles from "../Pages/MuestraDetalles"
 import { useEffect } from 'react';
-import Formulario from "../pages/Formulario"
 import { FormLayout } from './FormLayout';
 export function DashboardLayout() {
     //:)

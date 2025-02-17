@@ -21,7 +21,7 @@ class Imagen extends Model
     /**
      * Cada imagen pertenece a una muestra
      */
-    public function mmuestra()
+    public function muestra()
     {
         return $this->belongsTo(Muestra::class);
     }

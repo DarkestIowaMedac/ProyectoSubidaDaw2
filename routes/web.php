@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\MuestraController;
+use App\Http\Controllers\UsuarioController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -37,5 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::middleware('auth')->get('/user/id', [UsuarioController::class, 'idUsuario']); //Obtener el id del usuario que ha iniciado sesión o se ha registrado
+
 
 require __DIR__.'/auth.php';

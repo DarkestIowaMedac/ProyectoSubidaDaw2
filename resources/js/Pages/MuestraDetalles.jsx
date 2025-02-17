@@ -6,19 +6,29 @@ const MuestraDetalles = ({ muestra }) => {
     const { nombre, descripcion } = muestra;
 
     return (
-        //<AuthenticatedLayout>
-            <div className="max-w-2xl mx-auto p-6 border border-gray-300 rounded-lg shadow-md bg-gray-50">
-                <h1 className="text-2xl font-bold text-gray-800 mb-4">{nombre}</h1>
-                <p className="text-lg text-gray-600 mb-6">{descripcion}</p>
+        <>
+            <Head title="Detalles de la Muestra" />
+            <div className="max-w-2xl mx-auto p-6 border border-gray-700 rounded-lg shadow-lg bg-gray-800 text-white">
+                {/* Título */}
+                <h1 className="text-2xl font-bold mb-4 text-blue-400">{nombre}</h1>
+
+                {/* Descripción */}
+                <p className="text-lg text-gray-300 mb-6">{descripcion}</p>
+
+                {/* Botón Volver con Icono */}
                 <button
-                    className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition duration-300"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition duration-300"
                     onClick={() => window.history.back()}
                 >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
+                        <path d="M480-120 120-480l360-360 42 42-278 278h716v60H244l278 278-42 42Z" />
+                    </svg>
                     Volver
                 </button>
             </div>
-        //</AuthenticatedLayout>
+        </>
     );
+
 };
 
 export default MuestraDetalles;

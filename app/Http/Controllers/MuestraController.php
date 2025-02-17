@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sede;
+use App\Models\Formato;
 use App\Models\Muestra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 
 class MuestraController extends Controller
 {
@@ -36,6 +37,7 @@ class MuestraController extends Controller
         return response()->json($muestra);
     }
 
+
     public function update(Request $request, $id)
 
     {
@@ -63,6 +65,18 @@ class MuestraController extends Controller
         }
         $muestra->delete();
         return response()->json(null, 204);
+    }
+
+    public function showSedes()
+    {
+        $sedes = Sede::all();
+        return response()->json($sedes);
+    }
+
+    public function showFormatos()
+    {
+        $formatos = Formato::all();
+        return response()->json($formatos);
     }
 
 }

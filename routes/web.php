@@ -23,6 +23,8 @@ Route::get('/formulario', function () {
     return Inertia::render('Formulario');
 })->middleware(['auth', 'verified'])->name('formulario');
 
+Route::get('/sedes', [MuestraController::class, 'showSedes']); // Obtener todas las muestras
+Route::get('/formatos', [MuestraController::class, 'showFormatos']); // Obtener todas las muestras
 
 Route::get('/muestras', [MuestraController::class, 'index']); // Obtener todas las muestras
 Route::post('/crearmuestra', [MuestraController::class, 'store']); // Crear una nueva muestra

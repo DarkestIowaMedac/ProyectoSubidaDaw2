@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { AaSede } from '@/Components/AaSede';
+import { Aaformato } from '@/Components/AaFormato';
 
 export function FormLayout() {
     // Función para obtener la muestra de la cookie
@@ -126,6 +128,13 @@ export function FormLayout() {
                     value={formData.fecha} // Valor controlado
                     onChange={handleChange} // Manejar cambios
                     required
+                />
+
+                <br /><br />
+
+                <AaSede
+                    value={formData.sede_id}
+                    onChange={handleChange}
                 />
                 
                 <br /><br />

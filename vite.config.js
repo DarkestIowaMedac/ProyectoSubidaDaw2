@@ -11,6 +11,11 @@ export default defineConfig({
         react(),
     ],
     build: {
-        outDir: 'dist', // Asegúrate de que esto coincida con tu configuración de Netlify
+        outDir: 'dist', // Asegúrate de que esto esté configurado correctamente
+        rollupOptions: {
+            input: {
+                main: 'resources/js/app.jsx', // Asegúrate de que esta ruta sea correcta
+            },
+        },
     },
 });

@@ -7,7 +7,7 @@ export function DashboardLayout() {
 
     const [muestras, setMuestras] = useState([]);
     const [muestraDetalle, setMuestraDetalle] = useState(null);
-    const [refrescar, setRefrescar] = useState(false); // Estado para controlar el re-fetch
+    const [refrescar, setRefrescar] = useState(0); // Estado para controlar el re-fetch
     const [paginaActual, setPaginaActual] = useState(window.location.pathname);
 
     const fetchMuestras = async () => {
@@ -65,7 +65,7 @@ export function DashboardLayout() {
             console.error('Error:', error);
             alert('Error al intentar eliminar la muestra.');
         }
-        setRefrescar(true)
+        setRefrescar(refrescar+1)
     };
 
     const handleDelete = (id) => {
@@ -125,9 +125,9 @@ export function DashboardLayout() {
                             <MuestraDetalles muestra={muestraDetalle} />
                         ) : (
                             <div
-                                className="grid gap-6 
-                sm:grid-cols-1 
-                md:grid-cols-1 
+                                className="grid gap-6
+                sm:grid-cols-1
+                md:grid-cols-1
                 lg:grid-cols-2"
                             >
                                 {muestras.map((muestra) => (

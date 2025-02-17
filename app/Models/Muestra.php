@@ -12,8 +12,11 @@ class Muestra extends Model
 
     // Campos rellenables
     protected $fillable = [
-        'codigo', // Autorrellenable
-        'fecha', // Rellenable
+        'codigo',
+        'fecha',
+        'user_id',
+        'sede_id',
+        'formato_id',
     ];
 
     /**

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function AaSede( value, change){
-
+export function AaSede({ value, onChange }) {
     const [sedes, setSedes] = useState([]);
 
     const fetchMuestras = async () => {
@@ -19,28 +18,21 @@ export function AaSede( value, change){
         }
     };
 
-    // Llama a fetchMuestras cuando el componente se monte
     useEffect(() => {
         fetchMuestras();
-    }, []); // El array vacío asegura que se ejecute solo una vez al montar el componente
-    
+    }, []);
 
-    return(
+    return (
         <>
-
-            <label for="sede">Sedes:</label>
-            <select id="sede" name="sede" value={value} onChange={change} required>
-
+            <label htmlFor="sede_id">Sedes:</label>
+            <select id="sede_id" name="sede_id" value={value} onChange={onChange} required>
                 <option value="">Selecciona una sede</option>
-
-                {
-                    sedes.map((sede)=>(
-                        <option key={sede.id} value={sede.id}>{sede.nombre}</option>
-                    ))
-                }
-
+                {sedes.map((sede) => (
+                    <option key={sede.id} value={sede.id}>
+                        {sede.nombre}
+                    </option>
+                ))}
             </select>
-
         </>
-    )
+    );
 }

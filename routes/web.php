@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth')->get('/user/id', [UsuarioController::class, 'idUsuario']);
+Route::middleware('auth')->get('/user/id', [UsuarioController::class, 'idUsuario']); //Obtener el id del usuario que ha iniciado sesión o se ha registrado
 
 
 require __DIR__.'/auth.php';

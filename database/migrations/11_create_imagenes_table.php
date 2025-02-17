@@ -15,8 +15,15 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('ruta');
-            $table->string('zoom');
+            // $table->unsignedBigInteger('muestra_id');
+            // $table->foreign('muestra_id')
+            //     ->references('id')
+            //     ->on('muestras')
+            //     ->unUpdate('cascade')
+            //     ->onDelete('cascade');
+
+            $table->string('ruta'); // Rellenable
+            $table->string('zoom'); // Autorrellenable
         });
     }
 

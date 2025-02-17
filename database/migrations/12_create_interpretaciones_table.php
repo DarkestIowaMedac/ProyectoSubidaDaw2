@@ -15,7 +15,14 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->text('texto');
+            // $table->unsignedBigInteger('muestra_id');
+            // $table->foreign('muestra_id')
+            //     ->references('id')
+            //     ->on('muestras')
+            //     ->unUpdate('cascade')
+            //     ->onDelete('cascade');
+
+            $table->text('texto'); // Rellenable
         });
     }
 

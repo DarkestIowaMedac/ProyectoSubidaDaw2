@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id(); // PK
             $table->timestamps();
 
-            $table->string('codigo'); // Autorellenable
-            $table->string('nombre'); // Autorellenable
+            $table->string('codigo'); // Autorrellenable
+            $table->string('nombre'); // Autorrellenable
         });
     }
 

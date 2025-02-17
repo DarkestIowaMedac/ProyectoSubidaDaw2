@@ -15,8 +15,36 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('nombre');
-            $table->text('descripcion');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->unUpdate('cascade')
+                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('sede_id');
+            $table->foreign('sede_id')
+                ->references('id')
+                ->on('sedes')
+                ->unUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('formato_id');
+            $table->foreign('formato_id')
+                ->references('id')
+                ->on('formatos')
+                ->unUpdate('cascade')
+                ->onDelete('cascade');
+
+            // $table->unsignedBigInteger('naturaleza_id');
+            // $table->foreign('naturaleza_id')
+            //     ->references('id')
+            //     ->on('naturalezas')
+            //     ->unUpdate('cascade')
+            //     ->onDelete('cascade');
+
+            $table->string('codigo');
+            $table->date('fecha');
         });
     }
 

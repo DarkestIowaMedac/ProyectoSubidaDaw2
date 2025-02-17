@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\MuestraController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\InterpretacionController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -42,5 +44,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->get('/user/id', [UsuarioController::class, 'idUsuario']); //Obtener el id del usuario que ha iniciado sesión o se ha registrado
 
+Route::post('/crearinterpretaciones/{muestra_id}', [InterpretacionController::class, 'store']);
+Route::delete('/borrarinterpretaciones/{muestra_id}', [InterpretacionController::class, 'delete']);
+
+Route::post('/crearimagenes/{muestra_id}', [ImagenController::class, 'store']);
+Route::delete('/borrarimagenes/{muestra_id}', [ImagenController::class, 'delete']);
 
 require __DIR__.'/auth.php';

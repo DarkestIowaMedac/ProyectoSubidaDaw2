@@ -97,6 +97,19 @@ export function FormLayout() {
             <h1>Formulario de los cojones</h1>
             <br />
             <form onSubmit={handleSubmit}>
+
+                <label htmlFor="nombre">Fecha:</label><br />
+                <input
+                    className="text-black"
+                    type="date"
+                    id="fecha"
+                    name="fecha"
+                    value={formData.nombre} // Valor controlado
+                    onChange={handleChange} // Manejar cambios
+                    required
+                />
+                <br /><br />
+
                 <label htmlFor="nombre">Nombre:</label><br />
                 <input
                     className="text-black"

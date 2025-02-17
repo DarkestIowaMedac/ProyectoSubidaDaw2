@@ -1,12 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { AaFecha } from '@/Components/AaFecha';
+import { AaCodigo } from '@/Components/AaCodigo';
 
 export function FormLayout() {
     // Función para obtener la muestra de la cookie
     const obtenerMuestraDeCookie = () => {
+
         const cookies = document.cookie.split('; '); // Divide las cookies en un array
+
         const muestraCookie = cookies.find((cookie) => cookie.startsWith('muestra='));
+
         deleteAllCookies();
+
         if (muestraCookie) {
             const muestraJSON = muestraCookie.split('=')[1]; // Obtiene el valor de la cookie
             return JSON.parse(muestraJSON); // Convierte la cadena JSON de vuelta a un objeto
@@ -24,30 +30,34 @@ export function FormLayout() {
             document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
         }
     }
+
+
     // Estado para la muestra anterior
     const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
 
-    // Estado para los datos del formulario
+    //! ESTADO PARA LOS DATOS DEL FORMMULARIO
     const [formData, setFormData] = useState({
-        nombre: '',
-        descripcion: '',
+        fecha: '',
+        codigo: '',
     });
 
-    // Efecto para inicializar los valores del formulario si hay una muestra anterior
+    //! Efecto para inicializar los valores del formulario si hay una muestra anterior
     useEffect(() => {
         if (muestraAnterior) {
             setFormData({
-                nombre: muestraAnterior.nombre || '',
-                descripcion: muestraAnterior.descripcion || '',
+                fecha: muestraAnterior.fecha || '',
+                codigo: muestraAnterior.codigo || '',
             });
         }
     }, [muestraAnterior]);
+
 
     // Manejar cambios en los campos del formulario
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
+
 
     // Manejar el envío del formulario
     const handleSubmit = async (event) => {
@@ -98,43 +108,18 @@ export function FormLayout() {
             <br />
             <form onSubmit={handleSubmit}>
 
-                <label htmlFor="nombre">Fecha:</label><br />
-                <input
-                    className="text-black"
-                    type="date"
-                    id="fecha"
-                    name="fecha"
-                    value={formData.nombre} // Valor controlado
-                    onChange={handleChange} // Manejar cambios
-                    required
-                />
+                <AaFecha 
+                    change={handleChange}
+                    value={formData.fecha}
+                ></AaFecha>
+
                 <br /><br />
 
-                <label htmlFor="nombre">Nombre:</label><br />
-                <input
-                    className="text-black"
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    placeholder="Escribe tu nombre"
-                    value={formData.nombre} // Valor controlado
-                    onChange={handleChange} // Manejar cambios
-                    required
+                <AaCodigo
+                    change={handleChange}
+                    value={formData.codigo}
                 />
-                <br /><br />
 
-                <label htmlFor="descripcion">Texto:</label><br />
-                <textarea
-                    className="text-black"
-                    id="descripcion"
-                    name="descripcion"
-                    rows="4"
-                    cols="50"
-                    placeholder="Escribe un mensaje aquí..."
-                    value={formData.descripcion} // Valor controlado
-                    onChange={handleChange} // Manejar cambios
-                    required
-                ></textarea>
                 <br /><br />
 
                 <button type="submit" className="bg-green-500 text-white p-3 rounded">

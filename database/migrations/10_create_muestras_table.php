@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sedes', function (Blueprint $table) {
-            $table->id(); // PK
+        Schema::create('muestras', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
 
-            $table->string('codigo'); // Autorellenable
-            $table->string('nombre'); // Autorellenable
+            $table->string('nombre');
+            $table->text('descripcion');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sedes');
+        Schema::dropIfExists('muestras');
     }
 };

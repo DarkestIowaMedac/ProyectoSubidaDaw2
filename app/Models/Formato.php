@@ -13,7 +13,7 @@ class Formato extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'nombre',
+        'nombre', // Autorrellenable
     ];
 
     /**
@@ -21,6 +21,6 @@ class Formato extends Model
      */
     public function muestras()
     {
-        return $this->hasMany(Muestra::class, 'idFormato');
+        return $this->hasMany(Muestra::class);
     }
 }

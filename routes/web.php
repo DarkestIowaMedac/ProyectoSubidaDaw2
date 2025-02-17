@@ -37,12 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('muestras', [MuestraController::class, 'store'])->name('muestras.store');
+Route::get('muestra/{id}', [MuestraController::class, 'show'])->name('muestra.show');
 
 Route::resource('sedes', SedeController::class);
 
-
-Route::post('muestras', [MuestraController::class, 'store'])->name('muestras.store');
-Route::get('muestra/{id}', [MuestraController::class, 'show'])->name('muestra.show');
 
 
 

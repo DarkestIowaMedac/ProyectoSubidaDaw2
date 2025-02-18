@@ -2,35 +2,32 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { AaSede } from '@/Components/AaSede';
 import { AaFormato } from '@/Components/AaFormato';
+import { AaImagen } from '@/Components/AaImagen';
 
 export function FormLayout() {
 
     // Función para obtener la muestra de la cookie
     const obtenerMuestraDeCookie = () => {
-        const cookies = document.cookie.split('; '); // Divide las cookies en un array
+        const cookies = document.cookie.split('; ');
         const muestraCookie = cookies.find((cookie) => cookie.startsWith('muestra='));
         deleteAllCookies();
         if (muestraCookie) {
-            const muestraJSON = muestraCookie.split('=')[1]; // Obtiene el valor de la cookie
-            return JSON.parse(muestraJSON); // Convierte la cadena JSON de vuelta a un objeto
+            const muestraJSON = muestraCookie.split('=')[1];
+            return JSON.parse(muestraJSON);
         }
-        return null; // Si no se encuentra la cookie, devuelve null
+        return null;
     };
 
     function deleteAllCookies() {
-        // Obtener todas las cookies
         const cookies = document.cookie.split(";");
-        // Recorrer cada cookie y eliminarla
         for (let cookie of cookies) {
             const cookieName = cookie.split("=")[0].trim();
-            // Establecer la cookie con una fecha de expiración en el pasado
             document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
         }
     }
-    // Estado para la muestra anterior
-    const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
 
-    //! Estado para los datos del formulario
+    const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
+    
     const [formData, setFormData] = useState({
         codigo: '',
         fecha: '',
@@ -39,38 +36,38 @@ export function FormLayout() {
         formato_id: '',
     });
 
-    const obtenerId = async() => {
+    const [imageUrls, setImageUrls] = useState([]); // Estado para almacenar las URLs de las imágenes
+
+    const obtenerId = async () => {
         try {
             const response = await fetch('/ProyectoSubidaDaw2/public/user/id');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const datos = await response.json();
-            return(datos)
+            return datos;
         } catch (error) {
             console.error('Error fetching formatos:', error);
             alert('Error al cargar los formatos. Por favor, intenta de nuevo más tarde.');
-            return null
+            return null;
         }
-    }
+    };
 
-    // useEffect para obtener el user_id al montar el componente
     useEffect(() => {
         const fetchUserId = async () => {
-            const userData = await obtenerId(); // Llama a la función asíncrona
+            const userData = await obtenerId();
             if (userData) {
                 setFormData((prevFormData) => ({
                     ...prevFormData,
-                    user_id: userData.user_id, // Actualiza el estado con el user_id obtenido
+                    user_id: userData.user_id,
                 }));
             }
         };
 
-        fetchUserId(); // Ejecuta la función
-    }, []); // Solo se ejecuta una vez al montar el componente
+        fetchUserId();
+    }, []);
 
 
-    //! Efecto para inicializar los valores del formulario si hay una muestra anterior
     useEffect(() => {
         if (muestraAnterior) {
             setFormData({
@@ -83,12 +80,13 @@ export function FormLayout() {
         }
     }, [muestraAnterior]);
 
-    // Manejar cambios en los campos del formulario
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    
     // Manejar el envío del formulario
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -96,33 +94,51 @@ export function FormLayout() {
         console.log('Datos enviados:', formData);
 
         try {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtén el token CSRF del meta tag
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            // Determinar la URL de la solicitud
             const url = muestraAnterior
                 ? `/ProyectoSubidaDaw2/public/actualizarmuestra/${muestraAnterior.id}`
                 : '/ProyectoSubidaDaw2/public/crearmuestra';
 
-            const method = muestraAnterior ? 'PUT' : 'POST'; // Cambiar el método según la acción
+            const method = muestraAnterior ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
                 method: method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken, // Incluye el token CSRF en los encabezados
+                    'X-CSRF-TOKEN': csrfToken,
                 },
                 body: JSON.stringify(formData),
             });
 
             if (response.ok) {
+                const responseData = await response.json(); // Obtener el ID de la muestra creada
+                const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
+
+                // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
+                if (imageUrls.length > 0) {
+                    const imageResponse = await fetch(`/ProyectoSubidaDaw2/public/crearimagenes/${muestraId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ images: imageUrls }), // Envía las URLs de las imágenes
+                    });
+
+                    if (imageResponse.ok) {
+                        alert('Imágenes subidas exitosamente');
+                    } else {
+                        alert('Error al subir las imágenes');
+                    }
+                }
+
                 alert(
                     muestraAnterior
                         ? 'Muestra actualizada exitosamente'
                         : 'Muestra creada exitosamente'
                 );
-                // Redirige al usuario a la vista Dashboard
-                //window.location.href = '/ProyectoSubidaDaw2/public/dashboard'; // Redirección manual
-                window.history.back()
+                window.history.back();
             } else if (response.status === 419) {
                 alert('Error 419: Token CSRF inválido o ausente.');
             } else {
@@ -139,7 +155,6 @@ export function FormLayout() {
             <h1>Formulario de los cojones</h1>
             <br />
             <form onSubmit={handleSubmit}>
-
                 <label htmlFor="codigo">Código:</label><br />
                 <input
                     className="text-black"
@@ -147,8 +162,8 @@ export function FormLayout() {
                     id="codigo"
                     name="codigo"
                     placeholder="Escribe tu codigo"
-                    value={formData.codigo} // Valor controlado
-                    onChange={handleChange} // Manejar cambios
+                    value={formData.codigo}
+                    onChange={handleChange}
                     required
                 />
                 <br /><br />
@@ -159,8 +174,8 @@ export function FormLayout() {
                     type="date"
                     id="fecha"
                     name="fecha"
-                    value={formData.fecha} // Valor controlado
-                    onChange={handleChange} // Manejar cambios
+                    value={formData.fecha}
+                    onChange={handleChange}
                     required
                 />
 
@@ -180,8 +195,12 @@ export function FormLayout() {
 
                 <br /><br />
 
+                <AaImagen onChange={setImageUrls} /> {/* Pasa la función para actualizar las URLs de las imágenes */}
+
+                <br /><br />
+
                 <button type="submit" className="bg-green-500 text-white p-3 rounded">
-                    {muestraAnterior ? 'Actualizar' : 'Crear'} {/* Cambia el texto del botón */}
+                    {muestraAnterior ? 'Actualizar' : 'Crear'}
                 </button>
             </form>
         </>

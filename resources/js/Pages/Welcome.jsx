@@ -51,7 +51,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     {/* Sección de Imagen */}
                 <div className="md:w-1/2 flex justify-center mt-10 md:mt-0 animate-fadeIn">
                     <img 
-                        src="./citolytics.png" 
+                        src="citolytics.png" 
                         alt="Citolytics Image" 
                         className="w-full max-w-md rounded-lg shadow-lg"
                     />

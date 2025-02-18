@@ -115,6 +115,13 @@ export default function AuthenticatedLayout({ header, children }) {
                             <span className="material-icons text-blue-400 mr-2">logout</span>
                             Cerrar Sesión
                         </Link>
+                        <div className="lg:ml-12 md:ml-12 sm:ml-12 lg:w-1/2 md:w-1/2 sm:w-1/2 flex justify-center items-center h-auto mt-10 md:mt-0">
+                        <img
+                            src="citolytics.png"
+                            alt="Citolytics Image"
+                            className=" rounded-lg shadow-lg"
+                        />
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -131,7 +138,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 {children}
             </main>
 
-            <Footer/>
+            <Footer />
         </div>
 
     );

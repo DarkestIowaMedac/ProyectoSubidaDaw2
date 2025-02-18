@@ -134,15 +134,20 @@ export function DashboardLayout() {
                                         id={muestra.id}
                                         className="p-5 bg-gray-800 rounded-lg shadow-lg border border-gray-700 h-full flex flex-col"
                                     >
-                                        {/* Título */}
+                                    
                                         <h1 className="text-lg font-bold text-white mb-2">
-                                            {muestra.id}. {muestra.nombre}
+                                            {muestra.id}.
                                         </h1>
 
-                                        {/* Descripción */}
                                         <h2 className="text-gray-300 mb-4 text-sm sm:text-base flex-grow">
-                                            {muestra.descripcion}
+                                            {muestra.codigo}
                                         </h2>
+
+                                        <h2 className="text-gray-300 mb-4 text-sm sm:text-base flex-grow">
+                                            {muestra.fecha}
+                                        </h2>
+
+
 
                                         {/* Botones pegados abajo */}
                                         <div className="flex flex-wrap gap-4 mt-auto justify-center items-center">

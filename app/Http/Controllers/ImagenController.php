@@ -26,17 +26,18 @@ class ImagenController extends Controller
              $imagen->ruta = $imagenData['ruta'];
              $imagen->zoom = $imagenData['zoom'];
              $imagen->muestra_id = $muestra_id;
+             $imagen->save(); // Guardar la imagen en la base de datos
          }
         return response()->json(['message' => 'Imágenes creadas con éxito'], 201);
     }
 
     public function delete($muestra_id){
-        // Obtener la muestra a partir de la ID que se pasa en el cuerpo de la solicitud
-        $muestra = Muestra::muestra();
+        $muestra = Muestra::find($muestra_id);
         if (!$muestra) {
             return response()->json(['message' => 'Muestra no encontrada'], 404);
         }
-        $muestra->imagenes()->delete();
+
+        Imagen::where('muestra_id', $muestra_id)->delete();
         return response()->json(['message' => 'Imágenes eliminadas con éxito'], 200);
     }
 }

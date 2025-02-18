@@ -5,9 +5,10 @@ namespace Database\Seeders;
 use App\Models\Formato;
 use App\Models\Imagen;
 use App\Models\Interpretacion;
+use App\Models\Muestra;
 use App\Models\Naturaleza;
-use App\Models\Sede;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sede;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@user.com',
         ]);
+
+        // Crea 10 usuarios falsos más
+        // User::factory()->count(10)->create();
 
         // Especifica las 15 posibles sedes de las muestras
         $sedes = [
@@ -91,6 +95,9 @@ class DatabaseSeeder extends Seeder
             Naturaleza::create($naturaleza);
         }
 
+        // Crea 10 muestras falsas de prueba
+        // Muestra::factory()->count(10)->create();
+
         // Especifica los aumentos y rutas de prueba de las imágenes
         $imagenes = [
             ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x4'],
@@ -106,10 +113,5 @@ class DatabaseSeeder extends Seeder
 
         // Crea 10 interpretaciones falsas de prueba
         Interpretacion::factory()->count(10)->create();
-
-        // Crea 10 muestras falsas de prueba
-        // Muestra::factory()->count(10)->create();
-
-
     }
 }

@@ -1,0 +1,21 @@
+GUÍA DE USO DE LAS RELACIONES DE ELOQUENT:
+
+     - Ejemplo:
+Tenemos en la base de datos una muestra y queremos saber qué usuario la ha introducido:
+1º - Guardamos esa muestra en una variable (p.ej. $muestra), seleccionándola por su id, o por otros medios.
+2º - Usamos la relación entre los usuarios y las muestras, que en este caso corresponde al método usuario() que se ubica en el modelo Muestra.php y la guardamos en una variable de esta manera:
+
+    $usuario = $muestra->usuario;
+
+    - Ejemplo de uso de Tinker para pruebas:
+Queremos saber qué muestras ha introducido el usuario que se encuentra en primer lugar en la base de datos:
+1º - Nos aseguramos que los datos necesarios figuran en la base de datos.
+2º - Ejecutamos: php artisan tinker
+3º - Ejecutamos: $usuario = App\Models\User::first()
+4º - Ejecutamos: $usuario->muestras
+Y obtenemos todas las muestras asociadas a ese usuario.
+
+Más información:
+https://styde.net/relaciones-con-el-orm-eloquent/
+https://www.youtube.com/watch?v=yqwZ0URKjcc
+https://documentacionlaravel.com/docs/11.x/eloquent-relationships#main-content

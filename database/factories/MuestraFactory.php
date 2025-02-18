@@ -17,8 +17,8 @@ class MuestraFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'nombre' => fake()->name(),
-            // 'descripcion' => fake()->text(500),
+            'codigo' => fake()->name(),
+            'fecha' => fake()->date(),
         ];
     }
 }

@@ -1,10 +1,9 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Footer from '@/Components/Footer';
+import logo from '../assets/citolytics.png'; // Ajusta la ruta según tu estructura de carpetas
+
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -117,7 +116,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         </Link>
                         <div className="lg:ml-12 md:ml-12 sm:ml-12 lg:w-1/2 md:w-1/2 sm:w-1/2 flex justify-center items-center h-auto mt-10 md:mt-0">
                         <img
-                            src="citolytics.png"
+                            src={logo}
                             alt="Citolytics Image"
                             className=" rounded-lg shadow-lg"
                         />

@@ -1,4 +1,5 @@
 import { Head, Link } from "@inertiajs/react";
+import logo from '../assets/citolytics.png';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
@@ -49,13 +50,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     </div>
 
                     {/* Sección de Imagen */}
-                <div className="md:w-1/2 flex justify-center mt-10 md:mt-0 animate-fadeIn">
-                    <img 
-                        src="citolytics.png" 
-                        alt="Citolytics Image" 
-                        className="w-full max-w-md rounded-lg shadow-lg"
-                    />
-                </div>
+                    <div className="md:w-1/2 flex justify-center mt-10 md:mt-0 animate-fadeIn">
+                        <img
+                            src={logo}
+                            alt="Citolytics Image"
+                            className="w-full max-w-md rounded-lg shadow-lg"
+                        />
+                    </div>
                 </div>
 
                 {/* Sección de Información */}

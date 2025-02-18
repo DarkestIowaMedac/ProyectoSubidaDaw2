@@ -2,9 +2,9 @@ export default function ApplicationLogo(props) {
     return (
         <img
             {...props}
-            src="citolytics.png" // Asegúrate de colocar la ruta correcta
+            src="citolytics.png"
             alt="Logo"
-            className="w-44 h-auto" // Ajusta el tamaño según necesites
+            className="w-44 h-auto"
         />
     );
 }

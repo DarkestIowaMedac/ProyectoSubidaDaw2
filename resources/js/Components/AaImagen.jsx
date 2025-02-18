@@ -4,7 +4,7 @@ export function AaImagen({ value, onChange }) {
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbsxcnftm/image/upload';
     const UPLOAD_PRESET = 'presetbueno';
 
-    const [arrayImages, setArrayImages] = useState([]); // Para almacenar las URLs de las imágenes
+    const [images, setImages] = useState([]); // Para almacenar las imágenes con su URL y zoom
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -12,7 +12,7 @@ export function AaImagen({ value, onChange }) {
 
     // Función que maneja la carga de imágenes
     const urlImages = async (e) => {
-        setArrayImages([]); // Limpiar imágenes previas
+        setImages([]); // Limpiar imágenes previas
         setIsLoading(true);
         setErrorMessage(""); // Limpiar cualquier error previo
 
@@ -24,7 +24,7 @@ export function AaImagen({ value, onChange }) {
             return;
         }
 
-        const uploadedUrls = [];
+        const uploadedImages = [];
 
         for (const archivo of imgs) {
             const formData = new FormData();
@@ -45,7 +45,7 @@ export function AaImagen({ value, onChange }) {
                     return; // Salimos de la función si hay un error
                 }
 
-                uploadedUrls.push(data.secure_url); // Guardamos la URL de la imagen subida
+                uploadedImages.push({ ruta: data.secure_url, zoom: "x1" }); // Guardamos la URL de la imagen subida con un zoom por defecto
             } catch (error) {
                 setErrorMessage("Hubo un problema con la conexión, por favor intente más tarde.");
                 console.error('Error al subir la imagen:', error);
@@ -55,11 +55,11 @@ export function AaImagen({ value, onChange }) {
         }
 
         // Solo actualizamos el estado de las imágenes si todas las imágenes se subieron correctamente
-        setArrayImages(uploadedUrls);
+        setImages(uploadedImages);
 
-        // Llamamos a la función onImageChange para enviar las URLs al padre
+        // Llamamos a la función onChange para enviar las URLs al padre
         if (onChange) {
-            onChange(uploadedUrls); // Ahora pasamos todas las URLs de las imágenes
+            onChange(uploadedImages); // Ahora pasamos todas las URLs de las imágenes
         }
 
         setIsLoading(false);
@@ -67,10 +67,22 @@ export function AaImagen({ value, onChange }) {
 
     // Función para manejar la eliminación de imágenes
     const handleDeleteImage = (index) => {
-        const newImages = arrayImages.filter((_, i) => i !== index);
-        setArrayImages(newImages);
+        const newImages = images.filter((_, i) => i !== index);
+        setImages(newImages);
 
         // Llamamos a onChange con las nuevas URLs después de eliminar una imagen
+        if (onChange) {
+            onChange(newImages);
+        }
+    };
+
+    // Función para manejar el cambio de zoom
+    const handleZoomChange = (index, zoom) => {
+        const newImages = [...images];
+        newImages[index].zoom = zoom; // Actualiza el zoom de la imagen correspondiente
+        setImages(newImages);
+
+        // Llamamos a onChange con las nuevas URLs después de cambiar el zoom
         if (onChange) {
             onChange(newImages);
         }
@@ -89,13 +101,13 @@ export function AaImagen({ value, onChange }) {
                     className="mb-4"
                     aria-label="Selecciona las imágenes que deseas subir"
                 />
-
+    
                 {errorMessage && (
                     <div className="text-red-500 text-center mb-4">
                         <p>{errorMessage}</p>
                     </div>
                 )}
-
+    
                 <div id="imgcontainer" className="flex flex-wrap justify-start gap-5">
                     {isLoading ? (
                         <div className="w-full mt-5 text-center">
@@ -103,10 +115,10 @@ export function AaImagen({ value, onChange }) {
                             <div className="loader mt-2"></div>
                         </div>
                     ) : (
-                        arrayImages.map((url, index) => (
+                        images.map((image, index) => (
                             <div key={index} className="mt-5 relative">
                                 <img 
-                                    src={url} 
+                                    src={image.ruta} 
                                     alt={`Imagen subida ${index}`} 
                                     className="w-32 h-32 rounded-full object-cover" 
                                 />
@@ -121,9 +133,9 @@ export function AaImagen({ value, onChange }) {
                                 <select
                                     className="mt-2 w-32 p-2 bg-white border-2 border-gray-300 rounded-lg text-gray-700 font-medium shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none hover:border-blue-500 transition duration-300 ease-in-out"
                                     name="zoom"
-                                    id="<zoom>"
                                     required
-                                    defaultValue=""
+                                    defaultValue={image.zoom} // Establece el valor por defecto al zoom actual
+                                    onChange={(e) => handleZoomChange(index, e.target.value)} // Llama a la función al cambiar el zoom
                                 >
                                     <option value="" disabled>Aumento</option>
                                     {aumentos.map((aument, i) => (

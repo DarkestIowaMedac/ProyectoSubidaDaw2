@@ -19,7 +19,23 @@ export function FormLayout() {
         return null;
     };
 
+    async function borrarimagenes(muestraId, csrfToken) {
+        const deleteResponse = await fetch(`/ProyectoSubidaDaw2/public/borrarimagenes/${muestraId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+            },
+        });
+        if (!deleteResponse.ok) {
+            const errorData = await deleteResponse.json();
+            console.error('Error al borrar las imágenes:', errorData);
+            alert('Error al borrar las imágenes: ' + errorData.message);
+        } else {
+            console.log('Imágenes borradas exitosamente');
+        }
 
+    }
 //----- Función para borrar todas las cookies --------------------------------------------------------
 
     function deleteAllCookies() {
@@ -31,7 +47,7 @@ export function FormLayout() {
     }
 
     const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
-    
+
     const [formData, setFormData] = useState({
         codigo: '',
         fecha: '',
@@ -90,7 +106,7 @@ export function FormLayout() {
         setFormData({ ...formData, [name]: value });
     };
 
-    
+
 //----- Manejar el envío del formulario -------------------------------------------------------------
 
     const handleSubmit = async (event) => {
@@ -122,7 +138,7 @@ export function FormLayout() {
             if (response.ok) {
                 const responseData = await response.json(); // Obtener el ID de la muestra creada
                 const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
-
+                await borrarimagenes(muestraId, csrfToken); // Borra las imágenes anteriores
                 // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
                 if (imageUrls.length > 0) {
 

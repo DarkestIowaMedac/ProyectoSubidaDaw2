@@ -18,7 +18,6 @@ export function DashboardLayout (){
             }
             const datos = await response.json();
             setMuestras(datos);
-            console.log(datos);
         } catch (error) {
             console.error('Error fetching muestras:', error);
             alert('Error al cargar las muestras. Por favor, intenta de nuevo más tarde.');

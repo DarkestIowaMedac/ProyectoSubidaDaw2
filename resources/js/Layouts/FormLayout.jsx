@@ -123,8 +123,6 @@ export function FormLayout() {
                 const responseData = await response.json(); // Obtener el ID de la muestra creada
                 const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
 
-                console.log(responseData)
-
                 // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
                 if (imageUrls.length > 0) {
 

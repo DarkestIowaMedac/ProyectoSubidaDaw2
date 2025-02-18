@@ -92,20 +92,20 @@ class DatabaseSeeder extends Seeder
         }
 
         // Especifica los aumentos y rutas de prueba de las imágenes
-        $imagenes = [
+        /*$imagenes = [
             ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x4'],
             ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x10'],
             ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x40'],
             ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x100'],
-        ];
+        ];*/
 
         // Crea las imágenes
-        foreach ($imagenes as $imagen) {
+        /*foreach ($imagenes as $imagen) {
             Imagen::create($imagen);
-        }
+        }*/
 
         // Crea 10 interpretaciones falsas de prueba
-        Interpretacion::factory()->count(10)->create();
+        /*Interpretacion::factory()->count(10)->create();*/
 
         // Crea 10 muestras falsas de prueba
         // Muestra::factory()->count(10)->create();

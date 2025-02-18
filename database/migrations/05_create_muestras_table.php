@@ -36,12 +36,12 @@ return new class extends Migration
                 ->unUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('naturaleza_id');
-            $table->foreign('naturaleza_id')
-                ->references('id')
-                ->on('naturalezas')
-                ->unUpdate('cascade')
-                ->onDelete('cascade');
+            // $table->unsignedBigInteger('naturaleza_id');
+            // $table->foreign('naturaleza_id')
+            //     ->references('id')
+            //     ->on('naturalezas')
+            //     ->unUpdate('cascade')
+            //     ->onDelete('cascade');
 
             $table->string('codigo');
             $table->date('fecha');

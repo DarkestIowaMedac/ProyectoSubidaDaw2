@@ -47,7 +47,7 @@ class InterpretacionController extends Controller
 
         foreach ($interpretacionesData as $data) {
             $interpretacion = new Interpretacion();
-            $interpretacion->idmuestra = $muestra->id;
+            $interpretacion->muestra_id = $muestra->id;
             $interpretacion->texto = $data['texto'];
             $interpretacion->save();
             $interpretaciones[] = $interpretacion;

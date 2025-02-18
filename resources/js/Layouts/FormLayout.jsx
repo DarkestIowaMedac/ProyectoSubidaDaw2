@@ -6,6 +6,28 @@ import { AaImagen } from '@/Components/AaImagen';
 
 export function FormLayout() {
 
+//----- Interpretaciones y métodos --------------------------------------------------------
+
+    const [interpretaciones, setInterpretaciones] = useState([
+        {texto: ''}
+    ]);
+
+    const addInterpretation = () => {
+        setInterpretaciones([...interpretaciones, { texto: '' }]); // Agregar un nuevo campo de texto
+    };
+
+    const removeInterpretation = (index) => {
+        const newInterpretaciones = interpretaciones.filter((_, i) => i !== index); // Quitar el campo de texto correspondiente
+        setInterpretaciones(newInterpretaciones);
+    };
+
+    const cambioInterpretacion = (index, event) => {
+        const newInterpretaciones = [...interpretaciones];
+        newInterpretaciones[index].texto = event.target.value; // Actualizar el texto en el índice correspondiente
+        setInterpretaciones(newInterpretaciones);
+    };
+    
+
 //----- Función para obtener la muestra de la cookie --------------------------------------------------
 
     const obtenerMuestraDeCookie = () => {
@@ -116,11 +138,11 @@ export function FormLayout() {
                 body: JSON.stringify(formData),
             });
 
+            const responseData = await response.json(); // Obtener el ID de la muestra creada
 
 //----- Subida de imágenes --------------------------------------------------
 
             if (response.ok) {
-                const responseData = await response.json(); // Obtener el ID de la muestra creada
                 const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
 
                 // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
@@ -152,6 +174,54 @@ export function FormLayout() {
                         alert('Error al subir las imágenes: ' + errorData.message);
                     }
                 }
+/*
+                alert(
+                    muestraAnterior
+                        ? 'Muestra actualizada exitosamente'
+                        : 'Muestra creada exitosamente'
+                );
+                window.history.back();
+            } else if (response.status === 419) {
+                alert('Error 419: Token CSRF inválido o ausente.');
+            } else {
+                const errorData = await response.json();
+                console.error('Error al procesar la solicitud:', errorData);
+                alert('Error al procesar la solicitud: ' + errorData.message);
+            }
+*/
+//----- Subida de interpretaciones --------------------------------------------------
+
+/*            if (response.ok) {
+                const responseData = await response.json(); // Obtener el ID de la muestra creada
+                const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
+*/
+                // Ahora sube las interpretaciones a la ruta /crearinterpretaciones/{muestra_id}
+                if (interpretaciones.length > 0) {
+
+                    const interpretacionesToSend = interpretaciones.map(inter => ({
+                        texto: inter.texto,
+                    }));
+
+                    console.log("Interpretaciones to send:")
+                    console.log(interpretacionesToSend)
+
+                    const interpretacionResponse = await fetch(`/ProyectoSubidaDaw2/public/crearinterpretaciones/${muestraId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ interpretaciones: interpretacionesToSend }), 
+                    });
+
+                    if (interpretacionResponse.ok) {
+                        alert('Interpretaciones subidas exitosamente');
+                    } else {
+                        const errorData = await interpretacionResponse.json();
+                        console.error('Error al subir las interpretaciones:', errorData);
+                        alert('Error al subir las interpretaciones: ' + errorData.message);
+                    }
+                }
 
                 alert(
                     muestraAnterior
@@ -166,6 +236,9 @@ export function FormLayout() {
                 console.error('Error al procesar la solicitud:', errorData);
                 alert('Error al procesar la solicitud: ' + errorData.message);
             }
+
+//-----------------------------------------------------------------            
+
         } catch (error) {
             console.error('Error:', error);
             alert('Error al enviar los datos');
@@ -218,6 +291,40 @@ export function FormLayout() {
                 <br /><br />
 
                 <AaImagen onChange={setImageUrls} /> {/* Pasa la función para actualizar las URLs de las imágenes */}
+
+                <br /><br />
+                {
+                    interpretaciones.map((interpretacion, index) => (
+                        <div key={index} className='interpretacion'>
+                            
+                            <label htmlFor="texto">
+                                Interpretación:
+                            </label>
+                            <br />
+                            <textarea 
+                                value={interpretacion.texto}
+                                name="texto"
+                                onChange={(event) => cambioInterpretacion(index, event)}
+                                required
+                            />
+                            <br />
+                            <button 
+                                type="button" 
+                                onClick={() => removeInterpretation(index)}
+                                className="bg-gray-400 text-white p-1 rounded"
+                            >Quitar</button>
+                        </div>
+                    ))
+                }
+
+                <br />
+                
+                    <button 
+                        type="button" 
+                        onClick={addInterpretation}
+                        className="bg-gray-400 text-white p-1 rounded"
+                    >Añadir otra interpretación</button>
+
 
                 <br /><br />
 

@@ -19,6 +19,14 @@ class Descripcion extends Model
     ];
 
     /**
+     * Cada descripción pertenece a una naturaleza
+     */
+    public function descripcion()
+    {
+        return $this->belongsTo(Naturaleza::class);
+    }
+
+    /**
      * Códigos y textos de las descripciones según la naturaleza de la muestra
      */
      protected $biopsia_corazon_descripciones = [

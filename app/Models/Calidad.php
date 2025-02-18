@@ -27,14 +27,6 @@ class Calidad extends Model
     }
 
     /**
-     * Cada descripción pertenece a una naturaleza
-     */
-    public function descripcion()
-    {
-        return $this->belongsTo(Naturaleza::class);
-    }
-
-    /**
      * Códigos y textos de las calidades según la naturaleza de la muestra
      */
     protected $biopsia_corazon_calidades = [
@@ -302,7 +294,7 @@ class Calidad extends Model
      * 2º - Ejecutar php artisan tinker
      * 3º - Para capturar por ejemplo el código de la primera naturaleza presente en
      * la base de datos, ejecutar:
-     * $naturaleza = App\Models\Naturaleza::first()
+     *
      * $naturaleza->codigo
      *
      * Más información:

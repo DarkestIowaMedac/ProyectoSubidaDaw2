@@ -123,6 +123,8 @@ export function FormLayout() {
                 const responseData = await response.json(); // Obtener el ID de la muestra creada
                 const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
 
+                console.log(responseData)
+
                 // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
                 if (imageUrls.length > 0) {
 
@@ -141,7 +143,7 @@ export function FormLayout() {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({ images: imageUrls }), // Envía las URLs de las imágenes
+                        body: JSON.stringify({ imagenes: imagesToSend }), // Envía las URLs de las imágenes
                     });
 
                     if (imageResponse.ok) {

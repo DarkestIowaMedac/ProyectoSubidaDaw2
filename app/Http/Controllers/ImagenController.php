@@ -32,12 +32,12 @@ class ImagenController extends Controller
     }
 
     public function delete($muestra_id){
-        // Obtener la muestra a partir de la ID que se pasa en el cuerpo de la solicitud
-        $muestra = Muestra::muestra();
+        $muestra = Muestra::find($muestra_id);
         if (!$muestra) {
             return response()->json(['message' => 'Muestra no encontrada'], 404);
         }
-        $muestra->imagenes()->delete();
+
+        Imagen::where('muestra_id', $muestra_id)->delete();
         return response()->json(['message' => 'Imágenes eliminadas con éxito'], 200);
     }
 }

@@ -50,4 +50,15 @@ Route::delete('/borrarinterpretaciones/{muestra_id}', [InterpretacionController:
 Route::post('/crearimagenes/{muestra_id}', [ImagenController::class, 'store']);
 Route::delete('/borrarimagenes/{muestra_id}', [ImagenController::class, 'delete']);
 
+Route::get('/interpretaciones', [InterpretacionController::class, 'index']);
+Route::post('/muestras/{muestra_id}/interpretaciones', [InterpretacionController::class, 'store']);
+Route::delete('/muestras/{muestra_id}/interpretaciones', [InterpretacionController::class, 'delete']);
+Route::get('/muestras/{muestra_id}/interpretaciones', [InterpretacionController::class, 'showByMuestraId']);
+
+Route::get('/imagenes', [ImagenController::class, 'index']);
+Route::post('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'store']);
+Route::delete('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'delete']);
+Route::get('/muestras/{muestra_id}/imagenes', [InterpretacionController::class, 'showByMuestraId']);
+
+
 require __DIR__.'/auth.php';

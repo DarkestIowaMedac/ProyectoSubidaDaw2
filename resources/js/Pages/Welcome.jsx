@@ -48,14 +48,21 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </div>
                     </div>
 
-                    {/* Sección de Imagen (Eliminada en esta versión) */}
+                    {/* Sección de Imagen */}
+                <div className="md:w-1/2 flex justify-center mt-10 md:mt-0 animate-fadeIn">
+                    <img 
+                        src="./citolytics.png" 
+                        alt="Citolytics Image" 
+                        className="w-full max-w-md rounded-lg shadow-lg"
+                    />
+                </div>
                 </div>
 
                 {/* Sección de Información */}
                 <section className="relative z-10 bg-white text-blue-950 py-16 text-center">
                     <h2 className="text-3xl font-bold">¿Por qué elegirnos?</h2>
                     <p className="mt-4 text-lg max-w-3xl mx-auto">
-                        Nuestra plataforma ofrece seguridad, rapidez y facilidad en la gestión de datos. Explora todas nuestras herramientas y optimiza tu flujo de trabajo.
+                        En citoylitcs nuestra plataforma ofrece seguridad, rapidez y facilidad en la gestión de datos. Explora todas nuestras herramientas y optimiza tu flujo de trabajo.
                     </p>
 
                     <div className="mt-8 flex flex-wrap justify-center gap-8">

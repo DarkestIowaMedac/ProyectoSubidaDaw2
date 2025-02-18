@@ -4,15 +4,10 @@ const Footer = () => {
     return (
         <footer className="bg-gradient-to-r from-gray-900 via-blue-950 to-slate-950 text-white p-4 mt-10 w-full fixed bottom-0">
             <div className="max-w-screen-xl mx-auto flex justify-end items-center space-x-6">
-                {/* Espacio para los enlaces */}
-                <div className="space-x-4">
-                    INFORME CREATOR
-                </div>
-
                 {/* Pie de página con el texto */}
                 <div>
                     <p className="text-xs text-right md:text-left">
-                        &copy; 2025 Informe Creator. Todos los derechos reservados.
+                        &copy; 2025 Citolytics. Todos los derechos reservados.
                     </p>
                 </div>
 

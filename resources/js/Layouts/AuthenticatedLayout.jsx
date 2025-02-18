@@ -21,7 +21,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 <div className="flex justify-between items-center px-4 h-16 w-full">
                     {/* Texto alineado a la izquierda */}
                     <div className="lg:text-3xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-white hover:text-gray-300 hover:scale-105 hover:shadow-lg  transition duration-500 ease-in-out">
-                        Informe Creator
+                        Citolytics
                     </div>
 
 

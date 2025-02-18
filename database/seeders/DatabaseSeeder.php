@@ -60,22 +60,6 @@ class DatabaseSeeder extends Seeder
             Formato::create($formato);
         }
 
-        // Especifica los aumentos y rutas de prueba de las imágenes
-        $imagenes = [
-            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x4'],
-            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x10'],
-            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x40'],
-            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x100'],
-        ];
-
-        // Crea las imágenes
-        foreach ($imagenes as $imagen) {
-            Imagen::create($imagen);
-        }
-
-        // Crea 10 interpretaciones falsas de prueba
-        Interpretacion::factory()->count(10)->create();
-
         // Especifica la naturaleza (id y tipo de estudio)
         $naturalezas = [
             ['codigo' => 'BB', 'tipoEstudio' => 'Biopsia de bazo'],
@@ -106,6 +90,22 @@ class DatabaseSeeder extends Seeder
         foreach ($naturalezas as $naturaleza) {
             Naturaleza::create($naturaleza);
         }
+
+        // Especifica los aumentos y rutas de prueba de las imágenes
+        $imagenes = [
+            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x4'],
+            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x10'],
+            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x40'],
+            ['ruta' => 'https://centromedicoabc.com/storage/2024/07/funciones-Medicina-interna-1024x683.webp', 'zoom' => 'x100'],
+        ];
+
+        // Crea las imágenes
+        foreach ($imagenes as $imagen) {
+            Imagen::create($imagen);
+        }
+
+        // Crea 10 interpretaciones falsas de prueba
+        Interpretacion::factory()->count(10)->create();
 
         // Crea 10 muestras falsas de prueba
         // Muestra::factory()->count(10)->create();

@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('muestras', function (Blueprint $table) {
-            $table->id();
+        Schema::create('sedes', function (Blueprint $table) {
+            $table->id(); // PK
             $table->timestamps();
 
-            // Campos añadidos
-            $table->string('nombre');
-            $table->text('descripcion');
+            $table->string('codigo'); // Autorrellenable
+            $table->string('nombre'); // Autorrellenable
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('muestras');
+        Schema::dropIfExists('sedes');
     }
 };

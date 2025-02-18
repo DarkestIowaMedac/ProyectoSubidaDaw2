@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sedes', function (Blueprint $table) {
-            // Campos genéricos
-            $table->id(); // PK
+        Schema::create('formatos', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
 
-            // Campos añadidos
-            $table->string('codigo'); // Autorellenable
-            $table->string('nombre'); // Autorellenable
+            $table->string('nombre');
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sedes');
+        Schema::dropIfExists('formatos');
     }
 };

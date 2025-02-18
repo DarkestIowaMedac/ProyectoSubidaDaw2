@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\MuestraController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\InterpretacionController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -23,6 +26,8 @@ Route::get('/formulario', function () {
     return Inertia::render('Formulario');
 })->middleware(['auth', 'verified'])->name('formulario');
 
+Route::get('/sedes', [MuestraController::class, 'showSedes']); // Obtener todas las muestras
+Route::get('/formatos', [MuestraController::class, 'showFormatos']); // Obtener todas las muestras
 
 Route::get('/muestras', [MuestraController::class, 'index']); // Obtener todas las muestras
 Route::post('/crearmuestra', [MuestraController::class, 'store']); // Crear una nueva muestra
@@ -35,5 +40,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::middleware('auth')->get('/user/id', [UsuarioController::class, 'idUsuario']); //Obtener el id del usuario que ha iniciado sesión o se ha registrado
+
+Route::post('/crearinterpretaciones/{muestra_id}', [InterpretacionController::class, 'store']);
+Route::delete('/borrarinterpretaciones/{muestra_id}', [InterpretacionController::class, 'delete']);
+
+Route::post('/crearimagenes/{muestra_id}', [ImagenController::class, 'store']);
+Route::delete('/borrarimagenes/{muestra_id}', [ImagenController::class, 'delete']);
 
 require __DIR__.'/auth.php';

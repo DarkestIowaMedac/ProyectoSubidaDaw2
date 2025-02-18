@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Un usuario tiene muchas muestras
+     */
+    public function muestras()
+    {
+        return $this->hasMany(Muestra::class);
+    }
 }

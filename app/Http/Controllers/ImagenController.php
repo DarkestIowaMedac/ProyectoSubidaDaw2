@@ -25,7 +25,7 @@ class ImagenController extends Controller
              $imagen = new Imagen();
              $imagen->ruta = $imagenData['ruta'];
              $imagen->zoom = $imagenData['zoom'];
-             $muestra->imagenes()->save($imagen);
+             $imagen->muestra_id = $muestra_id;
          }
         return response()->json(['message' => 'Imágenes creadas con éxito'], 201);
     }

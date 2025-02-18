@@ -16,6 +16,7 @@ class Imagen extends Model
     protected $fillable = [
         'ruta', // Rellenable
         'zoom', // Rellenable
+        //'muestra_id',
     ];
 
     /**

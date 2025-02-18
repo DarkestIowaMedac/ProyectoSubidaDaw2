@@ -1,10 +1,9 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Footer from '@/Components/Footer';
+import logo from '../assets/citolytics.png';
+
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -20,7 +19,7 @@ export default function AuthenticatedLayout({ header, children }) {
             <div className="bg-gradient-to-r from-gray-900 via-blue-950 to-slate-950 text-white fixed w-full z-20 shadow-md shadow-gray-900">
                 <div className="flex justify-between items-center px-4 h-16 w-full">
                     {/* Texto alineado a la izquierda */}
-                    <div className="lg:text-3xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-white hover:text-gray-300 hover:scale-105 hover:shadow-lg  transition duration-500 ease-in-out">
+                    <div className="text-xl lg:text-3xl md:text-3xl sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-white hover:text-gray-300 hover:scale-105 hover:shadow-lg  transition duration-1000 ease-in-out">
                         Citolytics
                     </div>
 
@@ -115,6 +114,13 @@ export default function AuthenticatedLayout({ header, children }) {
                             <span className="material-icons text-blue-400 mr-2">logout</span>
                             Cerrar Sesión
                         </Link>
+                        <div className="lg:ml-12 md:ml-12 sm:ml-12 lg:w-1/2 md:w-1/2 sm:w-1/2 flex justify-center items-center h-auto mt-10 md:mt-0">
+                        <img
+                            src={logo}
+                            alt="Citolytics Image"
+                            className=" rounded-lg shadow-lg"
+                        />
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -131,7 +137,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 {children}
             </main>
 
-            <Footer/>
+            <Footer />
         </div>
 
     );

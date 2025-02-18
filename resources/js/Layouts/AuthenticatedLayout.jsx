@@ -2,7 +2,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Footer from '@/Components/Footer';
-import logo from '../assets/citolytics.png'; // Ajusta la ruta según tu estructura de carpetas
+import logo from '../assets/citolytics.png';
 
 
 export default function AuthenticatedLayout({ header, children }) {
@@ -19,7 +19,7 @@ export default function AuthenticatedLayout({ header, children }) {
             <div className="bg-gradient-to-r from-gray-900 via-blue-950 to-slate-950 text-white fixed w-full z-20 shadow-md shadow-gray-900">
                 <div className="flex justify-between items-center px-4 h-16 w-full">
                     {/* Texto alineado a la izquierda */}
-                    <div className="lg:text-3xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-white hover:text-gray-300 hover:scale-105 hover:shadow-lg  transition duration-500 ease-in-out">
+                    <div className="lg:text-3xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-white hover:text-gray-300 hover:scale-105 hover:shadow-lg  transition duration-1000 ease-in-out">
                         Citolytics
                     </div>
 

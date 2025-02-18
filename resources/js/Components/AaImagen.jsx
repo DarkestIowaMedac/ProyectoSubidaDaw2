@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function AaImagen({ value, onChange }) {
+export function AaImagen({ onChange }) {
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbsxcnftm/image/upload';
     const UPLOAD_PRESET = 'presetbueno';
 
@@ -10,7 +10,8 @@ export function AaImagen({ value, onChange }) {
 
     const aumentos = ["x4", "x10", "x40", "x100"];
 
-    // Función que maneja la carga de imágenes
+//----- Función que maneja la carga de imágenes -------------------------------------------------------
+
     const urlImages = async (e) => {
         setImages([]); // Limpiar imágenes previas
         setIsLoading(true);
@@ -45,7 +46,8 @@ export function AaImagen({ value, onChange }) {
                     return; // Salimos de la función si hay un error
                 }
 
-                uploadedImages.push({ ruta: data.secure_url, zoom: "x1" }); // Guardamos la URL de la imagen subida con un zoom por defecto
+                // Guardamos la URL de la imagen subida con un zoom por defecto
+                uploadedImages.push({ ruta: data.secure_url, zoom: "x1" });
             } catch (error) {
                 setErrorMessage("Hubo un problema con la conexión, por favor intente más tarde.");
                 console.error('Error al subir la imagen:', error);
@@ -65,7 +67,9 @@ export function AaImagen({ value, onChange }) {
         setIsLoading(false);
     };
 
-    // Función para manejar la eliminación de imágenes
+
+//----- Función para manejar la eliminación de imágenes --------------------------------------------------
+
     const handleDeleteImage = (index) => {
         const newImages = images.filter((_, i) => i !== index);
         setImages(newImages);
@@ -76,7 +80,9 @@ export function AaImagen({ value, onChange }) {
         }
     };
 
-    // Función para manejar el cambio de zoom
+
+//----- Función para manejar el cambio de zoom -------------------------------------------
+
     const handleZoomChange = (index, zoom) => {
         const newImages = [...images];
         newImages[index].zoom = zoom; // Actualiza el zoom de la imagen correspondiente
@@ -133,8 +139,7 @@ export function AaImagen({ value, onChange }) {
                                 <select
                                     className="mt-2 w-32 p-2 bg-white border-2 border-gray-300 rounded-lg text-gray-700 font-medium shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none hover:border-blue-500 transition duration-300 ease-in-out"
                                     name="zoom"
-                                    required
-                                    defaultValue={image.zoom} // Establece el valor por defecto al zoom actual
+                                    value={image.zoom} // Cambiado a value para controlar el estado
                                     onChange={(e) => handleZoomChange(index, e.target.value)} // Llama a la función al cambiar el zoom
                                 >
                                     <option value="" disabled>Aumento</option>

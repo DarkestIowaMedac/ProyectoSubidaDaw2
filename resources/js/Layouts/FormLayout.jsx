@@ -6,7 +6,8 @@ import { AaImagen } from '@/Components/AaImagen';
 
 export function FormLayout() {
 
-    // Función para obtener la muestra de la cookie
+//----- Función para obtener la muestra de la cookie --------------------------------------------------
+
     const obtenerMuestraDeCookie = () => {
         const cookies = document.cookie.split('; ');
         const muestraCookie = cookies.find((cookie) => cookie.startsWith('muestra='));
@@ -17,6 +18,9 @@ export function FormLayout() {
         }
         return null;
     };
+
+
+//----- Función para borrar todas las cookies --------------------------------------------------------
 
     function deleteAllCookies() {
         const cookies = document.cookie.split(";");
@@ -87,7 +91,8 @@ export function FormLayout() {
     };
 
     
-    // Manejar el envío del formulario
+//----- Manejar el envío del formulario -------------------------------------------------------------
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -111,12 +116,25 @@ export function FormLayout() {
                 body: JSON.stringify(formData),
             });
 
+
+//----- Subida de imágenes --------------------------------------------------
+
             if (response.ok) {
                 const responseData = await response.json(); // Obtener el ID de la muestra creada
                 const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
 
                 // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
                 if (imageUrls.length > 0) {
+
+                    const imagesToSend = imageUrls.map(url => ({
+                        muestra_id: muestraId,
+                        ruta: url.ruta, // Asegúrate de que esto sea la URL de la imagen
+                        zoom: url.zoom // Asegúrate de que esto sea el zoom deseado
+                    }));
+
+                    console.log("Imagenes to send:")
+                    console.log(imagesToSend)
+
                     const imageResponse = await fetch(`/ProyectoSubidaDaw2/public/crearimagenes/${muestraId}`, {
                         method: 'POST',
                         headers: {
@@ -129,7 +147,9 @@ export function FormLayout() {
                     if (imageResponse.ok) {
                         alert('Imágenes subidas exitosamente');
                     } else {
-                        alert('Error al subir las imágenes');
+                        const errorData = await imageResponse.json();
+                        console.error('Error al subir las imágenes:', errorData);
+                        alert('Error al subir las imágenes: ' + errorData.message);
                     }
                 }
 
@@ -142,7 +162,9 @@ export function FormLayout() {
             } else if (response.status === 419) {
                 alert('Error 419: Token CSRF inválido o ausente.');
             } else {
-                alert('Error al procesar la solicitud');
+                const errorData = await response.json();
+                console.error('Error al procesar la solicitud:', errorData);
+                alert('Error al procesar la solicitud: ' + errorData.message);
             }
         } catch (error) {
             console.error('Error:', error);

@@ -47,7 +47,7 @@ Route::middleware('auth')->get('/user/id', [UsuarioController::class, 'idUsuario
 Route::post('/crearinterpretaciones/{muestra_id}', [InterpretacionController::class, 'store']);
 Route::delete('/borrarinterpretaciones/{muestra_id}', [InterpretacionController::class, 'delete']);
 
-Route::post('/crearimagenes/{muestra_id}', [ImagenController::class, 'store']);
+Route::post('/crearimagenes', [ImagenController::class, 'store']);
 Route::delete('/borrarimagenes/{muestra_id}', [ImagenController::class, 'delete']);
 
 Route::get('/interpretaciones', [InterpretacionController::class, 'index']);
@@ -61,4 +61,13 @@ Route::delete('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'dele
 Route::get('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'showByMuestraId']);
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
+Route::get('/a', function () {
+    $imagenFalsa = new App\Models\Imagen();
+    $imagenFalsa->ruta = 'ruta/falsa.jpg';
+    $imagenFalsa->zoom = 1.5;
+    $imagenFalsa->muestra_id = 1;
+    $imagenFalsa->save();
+});

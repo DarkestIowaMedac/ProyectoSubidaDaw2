@@ -9,38 +9,25 @@ use Illuminate\Support\Facades\Log;
 
 class ImagenController extends Controller
 {
-    public function store(Request $request, $muestra_id) {
-        try {
+    public function store(Request $request) {
             // Obtener la muestra a partir de la ID que se pasa en el cuerpo de la solicitud
-            $muestra = Muestra::find($muestra_id);
-
+            $muestra = Muestra::find($request["imagenes"][0]["muestra_id"]);
             if (!$muestra) {
                 return response()->json(['message' => 'Muestra no encontrada'], 404);
             }
+    
+            $imagenesGuardadas = [];
 
-            $imagenesData = $request->input('imagenes'); // Suponiendo que las imágenes se envían como un array
-            Log::info($imagenesData); // Verifica la estructura de los datos
-
-            foreach ($imagenesData as $imagenData) {
-                try {
-                    if (isset($imagenData['ruta'], $imagenData['zoom'])) {
-                        $imagen = new Imagen();
-                        $imagen->ruta = $imagenData['ruta'];
-                        $imagen->zoom = $imagenData['zoom'];
-                        $imagen->muestra_id = $muestra_id;
-                        $imagen->save(); // Guardar la imagen en la base de datos
-                    } else {
-                        Log::error('Datos de imagen no válidos', ['data' => $imagenData]);
-                    }
-                } catch (\Exception $e) {
-                    Log::error('Error al guardar la imagen: ' . $e->getMessage(), ['data' => $imagenData]);
-                }
+            foreach ($request["imagenes"] as $imagenData) {
+                $imagen = new Imagen();
+                $imagen->ruta = $imagenData['ruta'];
+                $imagen->zoom = $imagenData['zoom'];
+                $imagen->muestra_id = $muestra->id;
+                $imagen->save(); // Guardar la imagen en la base de datos
+                $imagenesGuardadas[] = $imagen;
             }
-
-            return response()->json($imagenesData, 201);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Error en el servidor: ' . $e->getMessage()], 500);
-        }
+    
+            return response()->json($imagenesGuardadas, 201);
     }
 
     // public function delete($muestra_id){

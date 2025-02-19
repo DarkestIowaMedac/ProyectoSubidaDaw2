@@ -180,7 +180,8 @@ const handleSubmit = async (event) => {
         //----- Subida de imágenes --------------------------------------------------
         if (response.ok) {
             const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
-            //await borrarImagenes(muestraId); // Asegúrate de que esta función sea asíncrona
+            console.log(muestraId)
+            await borrarImagenes(muestraId); // Asegúrate de que esta función sea asíncrona
 
             // Ahora sube las imágenes a la ruta /crearimagenes/{muestra_id}
             if (images.length > 0) {

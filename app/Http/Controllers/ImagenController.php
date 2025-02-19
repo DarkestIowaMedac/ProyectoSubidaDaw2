@@ -43,15 +43,15 @@ class ImagenController extends Controller
         }
     }
 
-    // public function delete($muestra_id){
-    //     $muestra = Muestra::find($muestra_id);
-    //     if (!$muestra) {
-    //         return response()->json(['message' => 'Muestra no encontrada'], 404);
-    //     }
+    public function delete($muestra_id){
+        $muestra = Muestra::find($muestra_id);
+        if (!$muestra) {
+            return response()->json(['message' => 'Muestra no encontrada'], 404);
+        }
 
-    //     Imagen::where('muestra_id', $muestra_id)->delete();
-    //     return response()->json(['message' => 'Imágenes eliminadas con éxito'], 200);
-    // }
+        Imagen::where('muestra_id', $muestra_id)->delete();
+        return response()->json(['message' => 'Imágenes eliminadas con éxito'], 200);
+    }
 
     public function index()
     {

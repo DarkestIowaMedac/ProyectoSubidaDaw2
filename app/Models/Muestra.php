@@ -64,7 +64,7 @@ class Muestra extends Model
      */
     public function interpretaciones()
     {
-        return $this->hasMany(Imagen::class);
+        return $this->hasMany(Interpretacion::class);
     }
 }
 

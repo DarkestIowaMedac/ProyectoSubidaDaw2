@@ -177,7 +177,8 @@ const handleSubmit = async (event) => {
 
         const responseData = await response.json(); // Obtener el ID de la muestra creada
 
-        //----- Subida de imágenes --------------------------------------------------
+//----- Subida de imágenes --------------------------------------------------
+
         if (response.ok) {
             const muestraId = responseData.id; // Asegúrate de que tu API devuelva el ID de la muestra
             //await borrarImagenes(muestraId); // Asegúrate de que esta función sea asíncrona

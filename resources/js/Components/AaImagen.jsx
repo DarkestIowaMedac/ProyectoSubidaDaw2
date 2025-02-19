@@ -77,7 +77,7 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                 }
 
                 // Guardamos la URL de la imagen subida con un zoom por defecto
-                uploadedImages.push({ ruta: data.ruta, zoom: "x1" });
+                uploadedImages.push({ ruta: data.url, zoom: "x4" });
             } catch (error) {
                 setErrorMessage("Hubo un problema con la conexión, por favor intente más tarde.");
                 console.error('Error al subir la imagen:', error);

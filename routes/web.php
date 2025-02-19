@@ -58,7 +58,7 @@ Route::get('/muestras/{muestra_id}/interpretaciones', [InterpretacionController:
 Route::get('/imagenes', [ImagenController::class, 'index']);
 Route::post('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'store']);
 Route::delete('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'delete']);
-Route::get('/muestras/{muestra_id}/imagenes', [InterpretacionController::class, 'showByMuestraId']);
+Route::get('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'showByMuestraId']);
 
 
 require __DIR__.'/auth.php';

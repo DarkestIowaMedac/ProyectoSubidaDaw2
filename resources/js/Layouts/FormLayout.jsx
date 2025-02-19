@@ -8,6 +8,7 @@ export function FormLayout() {
 
 //----- Interpretaciones y métodos --------------------------------------------------------
 
+
     const [interpretaciones, setInterpretaciones] = useState([
         {texto: ''}
     ]);
@@ -26,7 +27,7 @@ export function FormLayout() {
         newInterpretaciones[index].texto = event.target.value; // Actualizar el texto en el índice correspondiente
         setInterpretaciones(newInterpretaciones);
     };
-    
+
 
 //----- Función para obtener la muestra de la cookie --------------------------------------------------
 
@@ -53,7 +54,7 @@ export function FormLayout() {
     }
 
     const [muestraAnterior, setMuestraAnterior] = useState(obtenerMuestraDeCookie());
-    
+
     const [formData, setFormData] = useState({
         codigo: '',
         fecha: '',
@@ -112,7 +113,7 @@ export function FormLayout() {
         setFormData({ ...formData, [name]: value });
     };
 
-    
+
 //----- Manejar el envío del formulario -------------------------------------------------------------
 
     const handleSubmit = async (event) => {
@@ -211,7 +212,7 @@ export function FormLayout() {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({ interpretaciones: interpretacionesToSend }), 
+                        body: JSON.stringify({ interpretaciones: interpretacionesToSend }),
                     });
 
                     if (interpretacionResponse.ok) {
@@ -237,7 +238,7 @@ export function FormLayout() {
                 alert('Error al procesar la solicitud: ' + errorData.message);
             }
 
-//-----------------------------------------------------------------            
+//-----------------------------------------------------------------
 
         } catch (error) {
             console.error('Error:', error);
@@ -290,26 +291,26 @@ export function FormLayout() {
 
                 <br /><br />
 
-                <AaImagen onChange={setImageUrls} /> {/* Pasa la función para actualizar las URLs de las imágenes */}
+                <AaImagen onChange={setImageUrls} muestraId={muestraAnterior.id} /> {/* Pasa la función para actualizar las URLs de las imágenes */}
 
                 <br /><br />
                 {
                     interpretaciones.map((interpretacion, index) => (
                         <div key={index} className='interpretacion'>
-                            
+
                             <label htmlFor="texto">
                                 Interpretación:
                             </label>
                             <br />
-                            <textarea 
+                            <textarea
                                 value={interpretacion.texto}
                                 name="texto"
                                 onChange={(event) => cambioInterpretacion(index, event)}
                                 required
                             />
                             <br />
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => removeInterpretation(index)}
                                 className="bg-gray-400 text-white p-1 rounded"
                             >Quitar</button>
@@ -318,9 +319,9 @@ export function FormLayout() {
                 }
 
                 <br />
-                
-                    <button 
-                        type="button" 
+
+                    <button
+                        type="button"
                         onClick={addInterpretation}
                         className="bg-gray-400 text-white p-1 rounded"
                     >Añadir otra interpretación</button>

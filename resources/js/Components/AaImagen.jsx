@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export function AaImagen({ onChange }) {
+export function AaImagen({ onChange, muestraId }) {
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbsxcnftm/image/upload';
     const UPLOAD_PRESET = 'presetbueno';
 
@@ -10,14 +10,41 @@ export function AaImagen({ onChange }) {
 
     const aumentos = ["x4", "x10", "x40", "x100"];
 
-//----- Función que maneja la carga de imágenes -------------------------------------------------------
+    //----- Función para obtener imágenes al montar el componente -------------------------------------------------------
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await fetch(`/ProyectoSubidaDaw2/public/muestras/${muestraId}/imagenes`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener imágenes');
+                }
+                const data = await response.json();
+                // Establecer las imágenes en el estado
+                setImages(data.map(img => ({ ruta: img.ruta, zoom: img.zoom }))); // Ajusta según la estructura de tu respuesta
+            } catch (error) {
+                console.error(error);
+                setErrorMessage("No se pudieron cargar las imágenes.");
+            }
+        };
 
+
+            fetchImages();
+
+    }, [muestraId]);
+
+    //----- Función que maneja la carga de imágenes -------------------------------------------------------
     const urlImages = async (e) => {
-        setImages([]); // Limpiar imágenes previas
+        //setImages([]); // Limpiar imágenes previas
+        console.log(images)
         setIsLoading(true);
         setErrorMessage(""); // Limpiar cualquier error previo
+        if(images){
+            let imgs = images
+        }
+        else{
+            let imgs = Array.from(e.target.files);
+        }
 
-        let imgs = Array.from(e.target.files);
 
         if (imgs.length === 0) {
             alert('Por favor, selecciona imágenes antes de subir.');
@@ -67,9 +94,7 @@ export function AaImagen({ onChange }) {
         setIsLoading(false);
     };
 
-
-//----- Función para manejar la eliminación de imágenes --------------------------------------------------
-
+    //----- Función para manejar la eliminación de imágenes --------------------------------------------------
     const handleDeleteImage = (index) => {
         const newImages = images.filter((_, i) => i !== index);
         setImages(newImages);
@@ -80,9 +105,7 @@ export function AaImagen({ onChange }) {
         }
     };
 
-
-//----- Función para manejar el cambio de zoom -------------------------------------------
-
+    //----- Función para manejar el cambio de zoom -------------------------------------------
     const handleZoomChange = (index, zoom) => {
         const newImages = [...images];
         newImages[index].zoom = zoom; // Actualiza el zoom de la imagen correspondiente
@@ -107,13 +130,13 @@ export function AaImagen({ onChange }) {
                     className="mb-4"
                     aria-label="Selecciona las imágenes que deseas subir"
                 />
-    
+
                 {errorMessage && (
                     <div className="text-red-500 text-center mb-4">
                         <p>{errorMessage}</p>
                     </div>
                 )}
-    
+
                 <div id="imgcontainer" className="flex flex-wrap justify-start gap-5">
                     {isLoading ? (
                         <div className="w-full mt-5 text-center">
@@ -123,10 +146,10 @@ export function AaImagen({ onChange }) {
                     ) : (
                         images.map((image, index) => (
                             <div key={index} className="mt-5 relative">
-                                <img 
-                                    src={image.ruta} 
-                                    alt={`Imagen subida ${index}`} 
-                                    className="w-32 h-32 rounded-full object-cover" 
+                                <img
+                                    src={image.ruta}
+                                    alt={`Imagen subida ${index}`}
+                                    className="w-32 h-32 rounded-full object-cover"
                                 />
                                 <button
                                     className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full p-1"
@@ -135,7 +158,7 @@ export function AaImagen({ onChange }) {
                                 >
                                     X
                                 </button>
-                                 
+
                                 <select
                                     className="mt-2 w-32 p-2 bg-white border-2 border-gray-300 rounded-lg text-gray-700 font-medium shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none hover:border-blue-500 transition duration-300 ease-in-out"
                                     name="zoom"

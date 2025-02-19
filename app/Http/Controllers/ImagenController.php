@@ -5,39 +5,53 @@ namespace App\Http\Controllers;
 use App\Models\Imagen;
 use App\Models\Muestra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ImagenController extends Controller
 {
-    public function store(Request $request, $muestra_id){
-        // Obtener la muestra a partir de la ID que se pasa en el cuerpo de la solicitud
-        $muestra = Muestra::find($muestra_id);
+    public function store(Request $request, $muestra_id) {
+        try {
+            // Obtener la muestra a partir de la ID que se pasa en el cuerpo de la solicitud
+            $muestra = Muestra::find($muestra_id);
 
-        if (!$muestra) {
-            return response()->json(['message' => 'Muestra no encontrada'], 404);
+            if (!$muestra) {
+                return response()->json(['message' => 'Muestra no encontrada'], 404);
+            }
+
+            $imagenesData = $request->input('imagenes'); // Suponiendo que las imágenes se envían como un array
+            Log::info($imagenesData); // Verifica la estructura de los datos
+
+            foreach ($imagenesData as $imagenData) {
+                try {
+                    if (isset($imagenData['ruta'], $imagenData['zoom'])) {
+                        $imagen = new Imagen();
+                        $imagen->ruta = $imagenData['ruta'];
+                        $imagen->zoom = $imagenData['zoom'];
+                        $imagen->muestra_id = $muestra_id;
+                        $imagen->save(); // Guardar la imagen en la base de datos
+                    } else {
+                        Log::error('Datos de imagen no válidos', ['data' => $imagenData]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Error al guardar la imagen: ' . $e->getMessage(), ['data' => $imagenData]);
+                }
+            }
+
+            return response()->json($imagenesData, 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error en el servidor: ' . $e->getMessage()], 500);
         }
-
-        $imagenesData = $request->input('imagenes'); // Suponiendo que las imágenes se envían como un array
-
-        foreach ($imagenesData as $imagenData) {
-            $imagen = new Imagen();
-            $imagen->ruta = $imagenData['ruta'];
-            $imagen->zoom = $imagenData['zoom'];
-            $imagen->muestra_id = $muestra_id;
-            $imagen->save(); // Guardar la imagen en la base de datos
-        }
-
-        return response()->json(['message' => 'Imágenes creadas con éxito'], 201);
     }
 
-    public function delete($muestra_id){
-        $muestra = Muestra::find($muestra_id);
-        if (!$muestra) {
-            return response()->json(['message' => 'Muestra no encontrada'], 404);
-        }
+    // public function delete($muestra_id){
+    //     $muestra = Muestra::find($muestra_id);
+    //     if (!$muestra) {
+    //         return response()->json(['message' => 'Muestra no encontrada'], 404);
+    //     }
 
-        Imagen::where('muestra_id', $muestra_id)->delete();
-        return response()->json(['message' => 'Imágenes eliminadas con éxito'], 200);
-    }
+    //     Imagen::where('muestra_id', $muestra_id)->delete();
+    //     return response()->json(['message' => 'Imágenes eliminadas con éxito'], 200);
+    // }
 
     public function index()
     {

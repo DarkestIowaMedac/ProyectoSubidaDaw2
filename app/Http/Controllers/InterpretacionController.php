@@ -27,7 +27,7 @@ class InterpretacionController extends Controller
             return response()->json(['message' => 'Muestra no encontrada'], 404);
         }
 
-        $interpretaciones = Interpretacion::where('idmuestra', $muestra_id)->get();
+        $interpretaciones = Interpretacion::where('muestra_id', $muestra_id)->get();
 
         return response()->json($interpretaciones, 200);
     }

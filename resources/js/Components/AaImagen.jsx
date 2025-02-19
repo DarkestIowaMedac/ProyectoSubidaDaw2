@@ -1,26 +1,35 @@
 import { useState, useEffect } from 'react';
 
-export function AaImagen({ onChange, muestraId }) {
+export function AaImagen({ onChange, muestraId, images, setImages }) {
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbsxcnftm/image/upload';
     const UPLOAD_PRESET = 'presetbueno';
 
-    const [images, setImages] = useState([]); // Para almacenar las imágenes con su URL y zoom
+     // Para almacenar las imágenes con su URL y zoom
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
     const aumentos = ["x4", "x10", "x40", "x100"];
-
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     //----- Función para obtener imágenes al montar el componente -------------------------------------------------------
     useEffect(() => {
+
         const fetchImages = async () => {
             try {
-                const response = await fetch(`/ProyectoSubidaDaw2/public/muestras/${muestraId}/imagenes`);
-                if (!response.ok) {
-                    throw new Error('Error al obtener imágenes');
-                }
-                const data = await response.json();
-                // Establecer las imágenes en el estado
-                setImages(data.map(img => ({ ruta: img.ruta, zoom: img.zoom }))); // Ajusta según la estructura de tu respuesta
+                if(muestraId != -1){
+
+                    const response = await fetch(`/ProyectoSubidaDaw2/public/muestras/${muestraId}/imagenes`,{
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                    });
+                    if (!response.ok) {
+                        throw new Error('Error al obtener imágenes');
+                    }
+                    const data = await response.json();
+                    // Establecer las imágenes en el estado
+                    setImages(data.map(img => ({ ruta: img.ruta, zoom: img.zoom }))); // Ajusta según la estructura de tu respuesta
+                    }
             } catch (error) {
                 console.error(error);
                 setErrorMessage("No se pudieron cargar las imágenes.");
@@ -34,27 +43,16 @@ export function AaImagen({ onChange, muestraId }) {
 
     //----- Función que maneja la carga de imágenes -------------------------------------------------------
     const urlImages = async (e) => {
-        //setImages([]); // Limpiar imágenes previas
-        console.log(images)
+        console.log("urlImages ha sido llamado");
+        console.log("Archivos seleccionados:", e.target.files);
         setIsLoading(true);
         setErrorMessage(""); // Limpiar cualquier error previo
-        if(images){
-            let imgs = images
-        }
-        else{
-            let imgs = Array.from(e.target.files);
-        }
 
-
-        if (imgs.length === 0) {
-            alert('Por favor, selecciona imágenes antes de subir.');
-            setIsLoading(false);
-            return;
-        }
-
+        let existingImages = [...images];
+        let newImages = Array.from(e.target.files);
         const uploadedImages = [];
 
-        for (const archivo of imgs) {
+        for (const archivo of newImages) {
             const formData = new FormData();
             formData.append('file', archivo);
             formData.append('upload_preset', UPLOAD_PRESET);
@@ -65,7 +63,12 @@ export function AaImagen({ onChange, muestraId }) {
                     body: formData,
                 });
 
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de Cloudinary');
+                }
+
                 const data = await response.json();
+                console.log(data); // Verifica la respuesta de Cloudinary
 
                 if (data.error) {
                     setErrorMessage("Error al subir la imagen, por favor intente nuevamente.");
@@ -74,7 +77,7 @@ export function AaImagen({ onChange, muestraId }) {
                 }
 
                 // Guardamos la URL de la imagen subida con un zoom por defecto
-                uploadedImages.push({ ruta: data.secure_url, zoom: "x1" });
+                uploadedImages.push({ ruta: data.ruta, zoom: "x1" });
             } catch (error) {
                 setErrorMessage("Hubo un problema con la conexión, por favor intente más tarde.");
                 console.error('Error al subir la imagen:', error);
@@ -83,12 +86,16 @@ export function AaImagen({ onChange, muestraId }) {
             }
         }
 
-        // Solo actualizamos el estado de las imágenes si todas las imágenes se subieron correctamente
-        setImages(uploadedImages);
+        // Combina las imágenes existentes con las nuevas subidas
+        const allImages = [...existingImages, ...uploadedImages];
+        console.log("Imágenes después de la subida:", allImages); // Verifica las imágenes almacenadas
+
+        // Actualiza el estado de las imágenes
+        setImages(allImages);
 
         // Llamamos a la función onChange para enviar las URLs al padre
         if (onChange) {
-            onChange(uploadedImages); // Ahora pasamos todas las URLs de las imágenes
+            onChange(allImages); // Ahora pasamos todas las URLs de las imágenes
         }
 
         setIsLoading(false);
@@ -144,6 +151,7 @@ export function AaImagen({ onChange, muestraId }) {
                             <div className="loader mt-2"></div>
                         </div>
                     ) : (
+                        Array.isArray(images) && images.length > 0 ? (
                         images.map((image, index) => (
                             <div key={index} className="mt-5 relative">
                                 <img
@@ -174,6 +182,10 @@ export function AaImagen({ onChange, muestraId }) {
                                 </select>
                             </div>
                         ))
+                    ) : (
+                        <div className="text-center mt-5">
+                            <p>No hay imágenes disponibles.</p>
+                        </div>)
                     )}
                 </div>
             </div>

@@ -160,6 +160,7 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                                     className="w-32 h-32 rounded-full object-cover"
                                 />
                                 <button
+                                    type="button" //NO PONER NADA EQUIVALE A type="submit"
                                     className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full p-1"
                                     onClick={() => handleDeleteImage(index)}
                                     aria-label="Eliminar imagen"
@@ -171,7 +172,7 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                                     className="mt-2 w-32 p-2 bg-white text-slate-900 border-2 border-gray-300 rounded-lg font-medium shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none hover:border-blue-500 transition duration-300 ease-in-out"
                                     name="zoom"
                                     value={image.zoom}
-                                    onChange={(e) => handleZoomChange(index, e.target.value)} 
+                                    onChange={(e) => handleZoomChange(index, e.target.value)}
                                 >
                                     <option value="" disabled>Aumento</option>
                                     {aumentos.map((aument, i) => (

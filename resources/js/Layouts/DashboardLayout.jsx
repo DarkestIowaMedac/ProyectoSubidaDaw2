@@ -118,7 +118,7 @@ export function DashboardLayout() {
 
             default:
                 return (
-                    <div className="container mx-auto px-4">
+                    <div className="container mx-auto px-4 mb-10">
                         {muestraDetalle ? (
                             <MuestraDetalles muestra={muestraDetalle} />
                         ) : (

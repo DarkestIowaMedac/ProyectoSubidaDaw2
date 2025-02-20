@@ -276,62 +276,73 @@ const handleSubmit = async (event) => {
 };
     const idComponent = muestraAnterior ? muestraAnterior.id : -1;
     return (
-        <>
-            <h1>Formulario de los cojones</h1>
-            <br />
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="codigo">Código:</label><br />
-                <input
-                    className="text-black"
-                    type="text"
-                    id="codigo"
-                    name="codigo"
-                    placeholder="Escribe tu codigo"
-                    value={formData.codigo}
-                    onChange={handleChange}
-                    required
-                />
-                <br /><br />
-
-                <label htmlFor="fecha">Fecha:</label><br />
-                <input
-                    className="text-black"
-                    type="date"
-                    id="fecha"
-                    name="fecha"
-                    value={formData.fecha}
-                    onChange={handleChange}
-                    required
-                />
-
-                <br /><br />
-
-                <AaSede
-                    value={formData.sede_id}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <AaFormato
-                    value={formData.formato_id}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <AaImagen images={images} setImages={setImages} muestraId={idComponent} /> {/* Pasa la función para actualizar las URLs de las imágenes */}
-
-                <br /><br />
-
-                <AaInterpretacion muestraId={idComponent} interpretaciones={interpretaciones} setInterpretaciones={setInterpretaciones} />
-
-                <br /><br />
-
-                <button type="submit" className="bg-green-500 text-white p-3 rounded">
+        <div className="max-w-2xl mx-auto p-8 bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
+            {/* Título con efecto degradado */}
+            <h1 className="text-3xl font-bold text-center text-white mb-6 bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text drop-shadow-md">
+                {muestraAnterior ? 'Actualizar Muestra' : 'Crear Muestra'}
+            </h1>
+    
+            <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Código */}
+                <div>
+                    <label htmlFor="codigo" className="block text-gray-200 font-semibold mb-2">
+                        Código:
+                    </label>
+                    <input
+                        className="w-full p-3 border border-gray-600 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+                        type="text"
+                        id="codigo"
+                        name="codigo"
+                        placeholder="Escribe el código"
+                        value={formData.codigo}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+    
+                {/* Fecha */}
+                <div>
+                    <label htmlFor="fecha" className="block text-gray-200 font-semibold mb-2">
+                        Fecha:
+                    </label>
+                    <input
+                        className="w-full p-3 border border-gray-600 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                        type="date"
+                        id="fecha"
+                        name="fecha"
+                        value={formData.fecha}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+    
+                {/* Secciones de selección */}
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 shadow-sm">
+                    <AaSede value={formData.sede_id} onChange={handleChange} />
+                </div>
+    
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 shadow-sm">
+                    <AaFormato value={formData.formato_id} onChange={handleChange} />
+                </div>
+    
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 shadow-sm">
+                    <AaImagen images={images} setImages={setImages} muestraId={idComponent} />
+                </div>
+    
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 shadow-sm">
+                    <AaInterpretacion muestraId={idComponent} interpretaciones={interpretaciones} setInterpretaciones={setInterpretaciones} />
+                </div>
+    
+                {/* Botón de acción */}
+                <button
+                    type="submit"
+                    className="w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 duration-300 shadow-lg"
+                >
                     {muestraAnterior ? 'Actualizar' : 'Crear'}
                 </button>
             </form>
-        </>
+        </div>
     );
+    
+    
 }

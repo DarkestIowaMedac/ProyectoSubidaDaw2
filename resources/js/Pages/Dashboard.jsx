@@ -12,14 +12,8 @@ export default function Dashboard() {
                     <div className="overflow-hidden bg-gradient-to-r from-slate-950 via-blue-950 to-slate-950 shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-400">
                             <h1 className="text-3xl text-white mb-6">Muestras Creadas</h1>
-                            {/* Total de muestras */}
-                            <div className="bg-gray-700 text-white p-4 mb-6 rounded-lg shadow-md">
-                                <h2 className="text-xl font-semibold">
-                                    Total de Muestras Creadas: 
-                                </h2>
-                            </div>
                             <div>
-                                <DashboardLayout></DashboardLayout>
+                                <DashboardLayout/>
                             </div>
                         </div>
                     </div>

@@ -33,58 +33,58 @@ const AaInterpretacion = ({muestraId, interpretaciones, setInterpretaciones}) =>
         }
     }, []);
 
-        return (
-            <div>
-                {
-                    Array.isArray(interpretaciones) && interpretaciones.length > 0 ? (
-                    interpretaciones.map((interpretacion, index) => (
-                        <div key={index} className='interpretacion'>
+    return (
+        <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-gray-300">Interpretaciones</h2>
 
-                            <label htmlFor="texto">
-                                Interpretación:
-                            </label>
-                            <br />
-                            <textarea
-                                value={interpretacion.texto}
-                                name="texto"
-                                onChange={(event) => cambioInterpretacion(index, event)}
-                                required
-                            />
-                            <br />
+            {Array.isArray(interpretaciones) && interpretaciones.length > 0 ? (
+                interpretaciones.map((interpretacion, index) => (
+                    <div key={index} className="p-4 bg-gray-900 rounded-lg shadow-md border border-gray-700">
+                        <label htmlFor={`interpretacion-${index}`} className="text-gray-300 font-medium block mb-2">
+                            Interpretación {index + 1}:
+                        </label>
+                        <textarea
+                            id={`interpretacion-${index}`}
+                            value={interpretacion.texto}
+                            name="texto"
+                            onChange={(event) => cambioInterpretacion(index, event)}
+                            required
+                            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            rows="3"
+                            placeholder="Escribe la interpretación..."
+                        />
+                        <div className="flex justify-end gap-2 mt-3">
                             <button
                                 type="button"
                                 onClick={() => removeInterpretacion(index)}
-                                className="bg-gray-400 text-white p-1 rounded"
-                            >Quitar</button>
-                            <br />
-
+                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition duration-300"
+                            >
+                                Quitar
+                            </button>
                             <button
                                 type="button"
                                 onClick={addInterpretacion}
-                                className="bg-gray-400 text-white p-1 rounded"
-                            >Añadir otra interpretación</button>
+                                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg transition duration-300"
+                            >
+                                Añadir otra
+                            </button>
                         </div>
-                    ))
-                ) : (
-                    <div>
-
-                    <p>No hay interpretaciones disponibles.</p>
-
+                    </div>
+                ))
+            ) : (
+                <div className="text-center">
+                    <p className="text-gray-400 mb-2">No hay interpretaciones disponibles.</p>
                     <button
                         type="button"
-                        onClick={addInterpretacion} // Llama a la función para añadir una nueva interpretación
-                        className="bg-blue-500 text-white p-2 rounded"
+                        onClick={addInterpretacion}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
                     >
                         Añadir una interpretación
                     </button>
-
                 </div>
-                )
-                }
-
-
-            </div>
-        );
+            )}
+        </div>
+    );
     };
 
 export default AaInterpretacion;

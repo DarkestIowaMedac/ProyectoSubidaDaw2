@@ -22,16 +22,26 @@ export function AaSede({ value, onChange }) {
     }, []);
 
     return (
-        <>
-            <label htmlFor="sede_id">Sedes:</label>
-            <select id="sede_id" name="sede_id" value={value} onChange={onChange} required>
-                <option value="">Selecciona una sede</option>
+        <div className="flex flex-col space-y-2">
+            <label htmlFor="sede_id" className="text-white font-semibold">
+                Sedes:
+            </label>
+            <select
+                id="sede_id"
+                name="sede_id"
+                value={value}
+                onChange={onChange}
+                required
+                className="w-full p-3 border border-gray-700 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                <option value="" className="text-white">Selecciona una sede</option>
                 {sedes.map((sede) => (
-                    <option key={sede.id} value={sede.id}>
+                    <option key={sede.id} value={sede.id} className="text-white">
                         {sede.nombre}
                     </option>
                 ))}
             </select>
-        </>
+        </div>
     );
+    
 }

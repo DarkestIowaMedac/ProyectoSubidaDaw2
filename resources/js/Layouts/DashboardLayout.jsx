@@ -63,7 +63,7 @@ export function DashboardLayout() {
             console.error('Error:', error);
             alert('Error al intentar eliminar la muestra.');
         }
-        setRefrescar(refrescar+1)
+        setRefrescar(refrescar + 1)
     };
 
     const handleDelete = (id) => {
@@ -132,22 +132,23 @@ export function DashboardLayout() {
                                     <div
                                         key={muestra.id}
                                         id={muestra.id}
-                                        className="p-5 bg-gray-800 rounded-lg shadow-lg border border-gray-700 h-full flex flex-col"
+                                        className="p-6 bg-gray-900 rounded-xl shadow-xl border border-gray-700 h-full flex flex-col transition-transform duration-1000 transform hover:scale-105"
                                     >
+                                        {/* ID 
+                                    <h1 className="text-xl font-extrabold text-white mb-3">
+                                        Muestra {muestra.id}
+                                    </h1>
+                                    */}
 
-                                        <h1 className="text-lg font-bold text-white mb-2">
-                                            {muestra.id}.
-                                        </h1>
+                                        {/* Código */}
+                                        <p className="text-gray-300 mb-2 text-sm sm:text-lg font-medium">
+                                            Código: <span className="font-normal">{muestra.codigo}</span>
+                                        </p>
 
-                                        <h2 className="text-gray-300 mb-4 text-sm sm:text-base flex-grow">
-                                            {muestra.codigo}
-                                        </h2>
-
-                                        <h2 className="text-gray-300 mb-4 text-sm sm:text-base flex-grow">
-                                            {muestra.fecha}
-                                        </h2>
-
-
+                                        {/* Fecha */}
+                                        <p className="text-gray-400 text-sm sm:text-lg font-medium pb-5">
+                                            Fecha: <span className="font-normal">{muestra.fecha}</span>
+                                        </p>
 
                                         {/* Botones pegados abajo */}
                                         <div className="flex flex-wrap gap-4 mt-auto justify-center items-center">

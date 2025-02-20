@@ -134,7 +134,7 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                     accept="image/*"
                     multiple
                     onChange={urlImages}
-                    className="mb-4"
+                    className="mb-4 text-white"
                     aria-label="Selecciona las imágenes que deseas subir"
                 />
 
@@ -147,7 +147,7 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                 <div id="imgcontainer" className="flex flex-wrap justify-start gap-5">
                     {isLoading ? (
                         <div className="w-full mt-5 text-center">
-                            <p className="text-lg font-semibold">Cargando imágenes...</p>
+                            <p className="text-lg font-semibold text-white">Cargando imágenes...</p>
                             <div className="loader mt-2"></div>
                         </div>
                     ) : (
@@ -168,10 +168,10 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                                 </button>
 
                                 <select
-                                    className="mt-2 w-32 p-2 bg-white border-2 border-gray-300 rounded-lg text-gray-700 font-medium shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none hover:border-blue-500 transition duration-300 ease-in-out"
+                                    className="mt-2 w-32 p-2 bg-white text-slate-900 border-2 border-gray-300 rounded-lg font-medium shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none hover:border-blue-500 transition duration-300 ease-in-out"
                                     name="zoom"
-                                    value={image.zoom} // Cambiado a value para controlar el estado
-                                    onChange={(e) => handleZoomChange(index, e.target.value)} // Llama a la función al cambiar el zoom
+                                    value={image.zoom}
+                                    onChange={(e) => handleZoomChange(index, e.target.value)} 
                                 >
                                     <option value="" disabled>Aumento</option>
                                     {aumentos.map((aument, i) => (
@@ -183,7 +183,7 @@ export function AaImagen({ onChange, muestraId, images, setImages }) {
                             </div>
                         ))
                     ) : (
-                        <div className="text-center mt-5">
+                        <div className="text-center mt-5 text-white">
                             <p>No hay imágenes disponibles.</p>
                         </div>)
                     )}

@@ -87,6 +87,7 @@ const verMuestra = async (id) => {
         });
         if (response.ok) {
             const muestraData = await response.json();
+            console.log(muestraData)
             setMuestraDetalle(muestraData); // Almacena la muestra en el estado
             window.history.pushState({}, '', `/ProyectoSubidaDaw2/public/dashboard`); // Cambia la URL sin recargar
         } else {

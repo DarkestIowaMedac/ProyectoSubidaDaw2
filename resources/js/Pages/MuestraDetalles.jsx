@@ -159,7 +159,7 @@ const MuestraDetalles = ({ muestra }) => {
             {/* Botones */}
             <div className="mt-8 flex flex-wrap justify-between">
                 <button
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300"
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-500 transition duration-300"
                     onClick={generarPDF}
                 >
                     Generar PDF

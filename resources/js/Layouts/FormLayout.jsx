@@ -336,7 +336,7 @@ const handleSubmit = async (event) => {
                 {/* Botón de acción */}
                 <button
                     type="submit"
-                    className="w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 duration-300 shadow-lg"
+                    className="w-full py-3 bg-blue-700 text-white font-bold rounded-lg hover:bg-blue-900 transition-transform transform hover:scale-95 duration-1000 shadow-lg"
                 >
                     {muestraAnterior ? 'Actualizar' : 'Crear'}
                 </button>

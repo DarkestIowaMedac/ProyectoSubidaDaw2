@@ -62,8 +62,7 @@ Route::post('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'store'
 Route::delete('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'delete']);
 Route::get('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'showByMuestraId']);
 
-Route::get('/formatos/{formato_id}', [FormatoController::class, 'mostrarFormato']); //Obtiene todos los datos de formatos si pones solo formato y si pones /formato/id sale toda la información del formato especificado por la id
-Route::get('/sede/{idSede}', [SedeController::class, 'show']); //Obtinene todos los datos de sedes si poner el id de una sede, si quieres ver todas las sedes simplemente se escribe /sedes
-
+Route::get('/formato/{formato_id}', [FormatoController::class, 'mostrarFormato']);
+Route::get('/sede/{sede_id}', [SedeController::class, 'show']);
 
 require __DIR__.'/auth.php';

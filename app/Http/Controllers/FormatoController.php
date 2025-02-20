@@ -16,7 +16,7 @@ class FormatoController extends Controller
     public function mostrarFormato($formato_id)
     {
         // Buscar el formato con las muestras asociadas
-        $formato = Formato::with('muestras')->find($formato_id);
+        $formato = Formato::find($formato_id);
 
         // Verificar si el formato existe
         if (!$formato) {

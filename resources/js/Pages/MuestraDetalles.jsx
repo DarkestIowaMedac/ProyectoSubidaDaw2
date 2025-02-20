@@ -83,6 +83,11 @@ const MuestraDetalles = ({ muestra }) => {
         fetchInterpretaciones(id)
     }, []);
 
+        // Función para generar el PDF
+        const generarPDF = () => {
+            window.open(`/ProyectoSubidaDaw2/public/generate-pdf/${id}`, '_blank'); // Abre el PDF en una nueva pestaña
+        };
+
     return (
         //<AuthenticatedLayout>
             <div className="max-w-2xl mx-auto p-6 border border-gray-300 rounded-lg shadow-md bg-gray-50">
@@ -140,6 +145,15 @@ const MuestraDetalles = ({ muestra }) => {
                     <p>No hay imágenes disponibles.</p>
                 )}
                 <p className="text-lg text-gray-600 mb-6">{created_at} created at</p>
+                
+                {/* Botón para generar el PDF */}
+                <button
+                    className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 transition duration-300 mb-4"
+                    onClick={generarPDF}
+                >
+                    Generar PDF
+                </button>
+                
                 <button
                     className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition duration-300"
                     onClick={() => window.history.back()}

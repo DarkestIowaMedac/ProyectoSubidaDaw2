@@ -146,8 +146,12 @@ const MuestraDetalles = ({ muestra }) => {
                 {imagenes.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                         {imagenes.map((imagen) => (
-                            <div key={imagen.id} className="border border-gray-700 rounded-full overflow-hidden shadow-md hover:shadow-lg transition flex items-center justify-center w-40 h-40">
+                            <div key={imagen.id} className="flex flex-col items-center">
+                            <div  className="border border-gray-700 rounded-full overflow-hidden shadow-md hover:shadow-lg transition flex items-center justify-center w-40 h-40">
                                 <img src={imagen.ruta} alt={`Imagen ${imagen.id}`} className="w-full h-full object-cover rounded-full" />
+                                
+                            </div>
+                            <p>{imagen.zoom}</p>
                             </div>
                         ))}
                     </div>

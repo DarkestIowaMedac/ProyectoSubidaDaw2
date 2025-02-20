@@ -27,16 +27,16 @@ const borrarInterpretaciones = async (muestraId) => {
         });
 
         if (response.ok) {
-            alert('Interpretaciones eliminadas exitosamente');
+            //alert('Interpretaciones eliminadas exitosamente');
             // Aquí puedes actualizar el estado de las interpretaciones si es necesario
         } else {
             const errorData = await response.json();
             console.error('Error al eliminar las interpretaciones:', errorData);
-            alert('Error al eliminar las interpretaciones: ' + errorData.message);
+            //alert('Error al eliminar las interpretaciones: ' + errorData.message);
         }
     } catch (error) {
         console.error('Error en la solicitud:', error);
-        alert('Error al realizar la solicitud para eliminar interpretaciones');
+        //alert('Error al realizar la solicitud para eliminar interpretaciones');
     }
 };
 
@@ -51,17 +51,17 @@ const borrarImagenes = async (muestraId) => {
             },
         });
         if (response.ok) {
-            alert('Imágenes eliminadas exitosamente');
+            //alert('Imágenes eliminadas exitosamente');
             // Aquí puedes actualizar el estado de las imágenes si es necesario
             setImages([]); // Por ejemplo, limpiar el estado de las imágenes
         } else {
             const errorData = await response.json();
             console.error('Error al eliminar las imágenes:', errorData);
-            alert('Error al eliminar las imágenes: ' + errorData.message);
+            //alert('Error al eliminar las imágenes: ' + errorData.message);
         }
     } catch (error) {
         console.error('Error en la solicitud:', error);
-        alert('Error al realizar la solicitud para eliminar imágenes');
+        //alert('Error al realizar la solicitud para eliminar imágenes');
     }
 };
 
@@ -89,7 +89,7 @@ const borrarImagenes = async (muestraId) => {
         if (!deleteResponse.ok) {
             const errorData = await deleteResponse.json();
             console.error('Error al borrar las imágenes:', errorData);
-            alert('Error al borrar las imágenes: ' + errorData.message);
+            //alert('Error al borrar las imágenes: ' + errorData.message);
         } else {
             console.log('Imágenes borradas exitosamente');
         }
@@ -127,7 +127,7 @@ const borrarImagenes = async (muestraId) => {
             return datos;
         } catch (error) {
             console.error('Error fetching formatos:', error);
-            alert('Error al cargar los formatos. Por favor, intenta de nuevo más tarde.');
+            //alert('Error al cargar los formatos. Por favor, intenta de nuevo más tarde.');
             return null;
         }
     };
@@ -220,11 +220,11 @@ const handleSubmit = async (event) => {
                 });
                 console.log("Respuesta de la API de imágenes:", imageResponse);
                 if (imageResponse.ok) {
-                    alert('Imágenes subidas exitosamente');
+                    //alert('Imágenes subidas exitosamente');
                 } else {
                     const errorData = await imageResponse.json();
                     console.error('Error al subir las imágenes:', errorData);
-                    alert('Error al subir las imágenes: ' + errorData.message);
+                    //alert('Error al subir las imágenes: ' + errorData.message);
                 }
             }
 
@@ -250,11 +250,11 @@ const handleSubmit = async (event) => {
                 });
 
                 if (interpretacionResponse.ok) {
-                    alert('Interpretaciones subidas exitosamente');
+                    //alert('Interpretaciones subidas exitosamente');
                 } else {
                     const errorData = await interpretacionResponse.json();
                     console.error('Error al subir las interpretaciones:', errorData);
-                    alert('Error al subir las interpretaciones: ' + errorData.message);
+                    //alert('Error al subir las interpretaciones: ' + errorData.message);
                 }
             }
 
@@ -267,11 +267,11 @@ const handleSubmit = async (event) => {
         } else {
             const errorData = await response.json();
             console.error('Error al procesar la solicitud:', errorData);
-            alert('Error al procesar la solicitud: ' + errorData.message);
+            //alert('Error al procesar la solicitud: ' + errorData.message);
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al enviar los datos');
+        //alert('Error al enviar los datos');
     }
 };
     const idComponent = muestraAnterior ? muestraAnterior.id : -1;
@@ -336,7 +336,7 @@ const handleSubmit = async (event) => {
                 {/* Botón de acción */}
                 <button
                     type="submit"
-                    className="w-full py-3 bg-blue-700 text-white font-bold rounded-lg hover:bg-blue-900 transition-transform transform hover:scale-95 duration-1000 shadow-lg"
+                    className="w-full py-3 bg-blue-700 text-white font-bold rounded-lg hover:bg-blue-900 transition-transform transform hover:scale-95 duration-300 shadow-lg"
                 >
                     {muestraAnterior ? 'Actualizar' : 'Crear'}
                 </button>

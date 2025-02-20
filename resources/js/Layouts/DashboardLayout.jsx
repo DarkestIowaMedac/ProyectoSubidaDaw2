@@ -134,7 +134,7 @@ export function DashboardLayout() {
                                         id={muestra.id}
                                         className="p-5 bg-gray-800 rounded-lg shadow-lg border border-gray-700 h-full flex flex-col"
                                     >
-                                    
+
                                         <h1 className="text-lg font-bold text-white mb-2">
                                             {muestra.id}.
                                         </h1>

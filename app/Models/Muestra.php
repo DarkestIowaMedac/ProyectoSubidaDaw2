@@ -64,8 +64,27 @@ class Muestra extends Model
      */
     public function interpretaciones()
     {
-        return $this->hasMany(Imagen::class);
+        return $this->hasMany(Interpretacion::class);
     }
 }
 
 
+/*
+
+    PRIORIDAD 1 (mañana jueves):
+    -Ver muestra
+    -Estilos
+
+    PRIORIDAD 2 (Miercoles 26):
+    -Campo naturaleza
+    -Generar PDF
+    -Railway despliegue
+    -Generación de datos
+    -validaciones
+
+    PRIORIDAD 3 (Miercoles 5):
+    -PaginasDeSede
+    -PaginasDeUsuario
+    -Usuarios con rol de admin
+    -PaginasDeFormatos
+*/

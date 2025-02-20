@@ -1,12 +1,16 @@
 <?php
 
 use Inertia\Inertia;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\SedeController;
 use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\FormatoController;
 use App\Http\Controllers\MuestraController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\MuestraPDFController;
 use App\Http\Controllers\InterpretacionController;
 
 Route::get('/', function () {
@@ -49,5 +53,38 @@ Route::delete('/borrarinterpretaciones/{muestra_id}', [InterpretacionController:
 
 Route::post('/crearimagenes/{muestra_id}', [ImagenController::class, 'store']);
 Route::delete('/borrarimagenes/{muestra_id}', [ImagenController::class, 'delete']);
+
+Route::get('/interpretaciones', [InterpretacionController::class, 'index']);
+Route::post('/muestras/{muestra_id}/interpretaciones', [InterpretacionController::class, 'store']);
+Route::delete('/muestras/{muestra_id}/interpretaciones', [InterpretacionController::class, 'delete']);
+Route::get('/muestras/{muestra_id}/interpretaciones', [InterpretacionController::class, 'showByMuestraId']);
+
+Route::get('/imagenes', [ImagenController::class, 'index']);
+Route::post('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'store']);
+Route::delete('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'delete']);
+Route::get('/muestras/{muestra_id}/imagenes', [ImagenController::class, 'showByMuestraId']);
+
+Route::get('/formato/{formato_id}', [FormatoController::class, 'mostrarFormato']);
+Route::get('/sede/{sede_id}', [SedeController::class, 'show']);
+
+
+
+Route::get('/generate-pdf/{id}', function ($id) {
+    // Busca la muestra en la base de datos
+    $muestra = \App\Models\Muestra::with(['sede', 'formato', 'imagenes', 'interpretaciones'])->findOrFail($id);
+
+    // Genera el PDF usando una vista Blade
+    $pdf = Pdf::loadView('pdf.muestra', [
+        'muestra' => $muestra,
+        'sede' => $muestra->sede,
+        'formato' => $muestra->formato,
+        'imagenes' => $muestra->imagenes]);
+        
+    // Devuelve el PDF como descarga
+    return $pdf->download('muestra_' . $muestra->codigo . '.pdf');
+});
+
+Route::get('/generate-pdf/{id}', [MuestraPDFController::class, 'generatePDF']);
+
 
 require __DIR__.'/auth.php';
